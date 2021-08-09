@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server';
 
-const Userscheme = gql`
+const schema = gql`
 	type User {
 		id: ID
 		userName: String
@@ -14,4 +14,4 @@ const Userscheme = gql`
 	}
 `;
 
-export default Userscheme;
+export default schema;
