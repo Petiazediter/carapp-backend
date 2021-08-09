@@ -4,6 +4,7 @@ const schema = gql`
 	type Car {
 		id: ID!
 		name: String
+		sellerId: Int
 		seller: User
 		brand: String
 		model: String

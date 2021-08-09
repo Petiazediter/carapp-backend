@@ -1,8 +1,9 @@
 import { ApolloServer } from 'apollo-server';
 import schema from './schema.js';
 import Query from './resolvers/Query.js';
+import Car from './resolvers/Car.js';
 
-const resolvers = { Query };
+const resolvers = { Query, Car };
 
 const apolloServer = new ApolloServer({ typeDefs: schema, resolvers });
 
