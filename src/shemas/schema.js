@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-core';
+import Userscheme from './Userscheme.js';
 
 const schema = gql`
 	type Car {
@@ -54,17 +55,7 @@ const schema = gql`
 		WAGON
 	}
 
-	type User {
-		id: ID
-		userName: String
-		emailAddress: String
-		userType: UserType
-	}
-
-	enum UserType {
-		PERSONAL
-		COMPANY
-	}
+	${Userscheme}
 
 	type Bid {
 		buyerId: Int
