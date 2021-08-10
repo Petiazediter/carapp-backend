@@ -6,9 +6,10 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import Query from './resolvers/Query.js';
 import Car from './resolvers/Car.js';
+import Mutation from './resolvers/Mutation.js';
 import typeDefs from './shemas/schema.js';
 
-const resolvers = { Query, Car };
+const resolvers = { Query, Car, Mutation };
 
 (async () => {
 	const app = express();
