@@ -1,7 +1,9 @@
 import { graphql } from 'graphql';
 
 const schema = graphql`
-    carCreated: Car
+	type Subscription {
+		carCreated: Car
+	}
 `;
 
 export default schema;
