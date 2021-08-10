@@ -17,6 +17,7 @@
 		"express": "^4.17.1",
 		"graphql": "^15.5.1",
 		"graphql-subscriptions": "^1.2.1",
+		"mysql": "^2.18.1",
 		"subscriptions-transport-ws": "^0.9.19"
 	},
 	"devDependencies": {

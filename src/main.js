@@ -9,6 +9,8 @@ import Car from './resolvers/Car.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
 import typeDefs from './shemas/schema.js';
+import { connectToDatabase } from './controllers/Database.js';
+import { connect } from 'http2';
 
 const resolvers = { Query, Car, Mutation, Subscription };
 
@@ -40,7 +42,8 @@ const resolvers = { Query, Car, Mutation, Subscription };
 	);
 
 	const PORT = 4000;
-	httpServer.listen(PORT, () =>
-		console.log(`🚀️ Apollo Server ready at http://localhost:${PORT}/graphql`)
-	);
+	httpServer.listen(PORT, () => {
+		console.log(`🚀️ Apollo Server ready at http://localhost:${PORT}/graphql`);
+		connectToDatabase();
+	});
 })();
