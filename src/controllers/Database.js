@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
 
 export const getConnection = () => connection;
 
-export const connectToDatabase = () => {
+export const connectToDatabase = async () => {
 	connection.connect((error) => {
 		if (error) {
 			console.log('❌️ Connection error!');
@@ -26,4 +26,18 @@ export const connectToDatabase = () => {
 			}
 		);
 	});
+};
+
+export const updateDatabase = () => {
+	connection.changeUser({ database: 'car_app_backend' }, (err) => {
+		if (err) {
+			console.log("❌️ Couldn't switch to new database.");
+			throw err;
+		}
+		console.log('✅️ Switched to car_app_backend database!');
+	});
+};
+
+export const shutDownConnection = () => {
+	connection.end();
 };

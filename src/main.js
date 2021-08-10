@@ -9,14 +9,25 @@ import Car from './resolvers/Car.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
 import typeDefs from './shemas/schema.js';
-import { connectToDatabase } from './controllers/Database.js';
-import { connect } from 'http2';
+import {
+	connectToDatabase,
+	shutDownConnection,
+} from './controllers/Database.js';
+import { CarController } from './controllers/CarController.js';
+import { updateDatabase } from './controllers/Database.js';
+import process from 'process';
+
+process.on('beforeExit', () => {
+	console.log('👋️ Bye bye! Exit application!');
+	shutDownConnection();
+});
 
 const resolvers = { Query, Car, Mutation, Subscription };
 
 (async () => {
 	const app = express();
-
+	await connectToDatabase();
+	await updateDatabase();
 	const httpServer = createServer(app);
 
 	const schema = makeExecutableSchema({
@@ -26,6 +37,9 @@ const resolvers = { Query, Car, Mutation, Subscription };
 
 	const server = new ApolloServer({
 		schema,
+		context: {
+			carController: new CarController(),
+		},
 	});
 
 	await server.start();
@@ -44,6 +58,5 @@ const resolvers = { Query, Car, Mutation, Subscription };
 	const PORT = 4000;
 	httpServer.listen(PORT, () => {
 		console.log(`🚀️ Apollo Server ready at http://localhost:${PORT}/graphql`);
-		connectToDatabase();
 	});
 })();
