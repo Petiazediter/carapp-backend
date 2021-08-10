@@ -1,3 +1,5 @@
+import pubsub from '../pubsub.js';
+
 const createCar = (parent, args, context, info) => {
 	const name = args.name;
 	const brand = args.brand;
@@ -10,7 +12,7 @@ const createCar = (parent, args, context, info) => {
 	const driveTrain = args.driveTrain;
 	const transmission = args.transmission;
 
-	return {
+	const myCar = {
 		name,
 		brand,
 		model,
@@ -22,6 +24,10 @@ const createCar = (parent, args, context, info) => {
 		driveTrain,
 		transmission,
 	};
+
+	pubsub.publish('CAR_CREATED', myCar);
+
+	return myCar;
 };
 
 export default {
