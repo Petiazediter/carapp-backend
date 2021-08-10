@@ -1,5 +1,5 @@
 const createCar = (parent, args, context, info) => {
-	const title = args.title;
+	const name = args.name;
 	const brand = args.brand;
 	const model = args.model;
 	const minBid = args.minBid;
@@ -11,7 +11,7 @@ const createCar = (parent, args, context, info) => {
 	const transmission = args.transmission;
 
 	return {
-		title,
+		name,
 		brand,
 		model,
 		minBid,

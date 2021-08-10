@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-core';
+import { gql } from 'apollo-server';
 import UserSchema from './UserSchema.js';
 import CarSchema from './CarSchema.js';
 import BidSchema from './BidSchema.js';
@@ -10,9 +10,9 @@ const typeDefs = gql`
 	${CarSchema}
 	${UserSchema}
 	${BidSchema}
-	${Subscription}
 	${Query}
 	${Mutation}
+	${Subscription}
 `;
 
 export default typeDefs;

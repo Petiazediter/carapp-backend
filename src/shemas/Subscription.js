@@ -1,6 +1,6 @@
-import { graphql } from 'graphql';
+import { gql } from 'apollo-server';
 
-const schema = graphql`
+const schema = gql`
 	type Subscription {
 		carCreated: Car
 	}

@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 const mutations = gql`
 	type Mutation {
 		createCar(
-			title: String!
+			name: String!
 			brand: String!
 			model: String!
 			minBid: Int!
