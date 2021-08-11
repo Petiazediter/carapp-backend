@@ -36,8 +36,16 @@ export class CarController {
 	}
 
 	async insertCar(car) {
-		this.cars.sync().then(() => {
+		await this.cars.sync().then(() => {
 			return this.cars.create(car);
+		});
+	}
+
+	async deleteCarById(id) {
+		await this.cars.sync().then(() => {
+			this.cars.findByPk(id).then((dbCar) => {
+				return dbCar.destroy();
+			});
 		});
 	}
 }

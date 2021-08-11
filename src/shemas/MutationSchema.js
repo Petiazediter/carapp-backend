@@ -14,6 +14,8 @@ const mutations = gql`
 			driveTrain: DriveTrain!
 			transmission: Transmission!
 		): Car
+
+		deleteCar(id: Int!): String!
 	}
 `;
 
