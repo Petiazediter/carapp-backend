@@ -29,8 +29,14 @@ export class CarController {
 		return this.cars;
 	}
 
+	async getCars() {
+		return this.cars.sync().then(() => {
+			return this.cars.findAll();
+		});
+	}
+
 	async insertCar(car) {
-		this.cars.sync({ force: true }).then(() => {
+		this.cars.sync().then(() => {
 			return this.cars.create(car);
 		});
 	}
