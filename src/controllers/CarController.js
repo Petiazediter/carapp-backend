@@ -17,9 +17,45 @@ export class CarController {
 				field: 'car_name',
 				allowNull: false,
 			},
+			sellerId: {
+				type: Sequelize.INTEGER,
+				field: 'seller_id',
+				allowNull: false,
+			},
 			brand: {
 				type: Sequelize.STRING,
 				field: 'brand_name',
+				allowNull: false,
+			},
+			model: {
+				type: Sequelize.STRING,
+				field: 'model',
+				allowNull: false,
+			},
+			minBid: {
+				type: Sequelize.INTEGER,
+				field: 'min_bid',
+				allowNull: false,
+				defaultValue: 0,
+			},
+			country: {
+				type: Sequelize.STRING,
+				field: 'country',
+				allowNull: false,
+			},
+			city: {
+				type: Sequelize.STRING,
+				field: 'city',
+				allowNull: false,
+			},
+			vin: {
+				type: Sequelize.STRING,
+				field: 'vin',
+				allowNull: false,
+			},
+			km: {
+				type: Sequelize.BIGINT,
+				field: 'km',
 				allowNull: false,
 			},
 		});

@@ -11,6 +11,7 @@ import Mutation from './resolvers/Mutation.js';
 import typeDefs from './shemas/schema.js';
 import { CarController } from './controllers/CarController.js';
 import process from 'process';
+import { BidController } from './controllers/BidController.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -19,6 +20,18 @@ process.on('beforeExit', () => {
 const resolvers = { Query, Car, Mutation, Subscription };
 
 (async () => {
+	const carController = new CarController();
+	const bidController = new BidController();
+
+	carController
+		.getCarsTable()
+		.hasMany(bidController.getBidsTable(), { as: 'bids' });
+
+	bidController.getBidsTable().belongsTo(carController.getCarsTable(), {
+		foreignKey: 'bid_id',
+		as: 'car',
+	});
+
 	const app = express();
 	const httpServer = createServer(app);
 
@@ -30,7 +43,8 @@ const resolvers = { Query, Car, Mutation, Subscription };
 	const server = new ApolloServer({
 		schema,
 		context: {
-			carController: new CarController(),
+			carController,
+			bidController,
 		},
 	});
 
