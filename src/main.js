@@ -9,25 +9,22 @@ import Car from './resolvers/Car.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
 import typeDefs from './shemas/schema.js';
-import {
-	connectToDatabase,
-	shutDownConnection,
-} from './controllers/Database.js';
+import //connectToDatabase,
+//shutDownConnection,
+'./controllers/Database.js';
 import { CarController } from './controllers/CarController.js';
-import { updateDatabase } from './controllers/Database.js';
 import process from 'process';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
-	shutDownConnection();
+	//shutDownConnection();
 });
 
 const resolvers = { Query, Car, Mutation, Subscription };
 
 (async () => {
 	const app = express();
-	await connectToDatabase();
-	await updateDatabase();
+	//await connectToDatabase();
 	const httpServer = createServer(app);
 
 	const schema = makeExecutableSchema({

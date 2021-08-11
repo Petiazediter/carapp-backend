@@ -1,19 +1,37 @@
+import Sequelize from 'sequelize';
 import { getConnection } from './Database.js';
 
 export class CarController {
 	constructor() {
 		this.connection = getConnection();
-		this.connection.query(
-			'CREATE TABLE IF NOT EXISTS cars (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL)',
-			(error) => {
-				if (error) {
-					console.log('❌️ Cars table is not initialized.');
-					throw error;
-				}
-				console.log('✅️ Cars table is up to date!');
-			}
-		);
+		this.cars = this.connection.define('cars', {
+			id: {
+				type: Sequelize.INTEGER,
+				field: 'id',
+				primaryKey: true,
+				autoIncrement: true,
+				allowNull: false,
+			},
+			name: {
+				type: Sequelize.STRING,
+				field: 'car_name',
+				allowNull: false,
+			},
+			brand: {
+				type: Sequelize.STRING,
+				field: 'brand_name',
+				allowNull: false,
+			},
+		});
 	}
 
-	async insertCar(car) {}
+	getCarsTable() {
+		return this.cars;
+	}
+
+	async insertCar(car) {
+		this.cars.sync({ force: true }).then(() => {
+			return this.cars.create(car);
+		});
+	}
 }
