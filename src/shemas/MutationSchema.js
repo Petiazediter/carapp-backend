@@ -34,7 +34,8 @@ const mutations = gql`
 	}
 
 	type AuthPayload {
-		isSuccess: Boolean
+		isSuccess: Boolean!
+		errorMessage: String
 		token: String
 		payload: User
 	}

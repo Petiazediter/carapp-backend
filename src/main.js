@@ -13,6 +13,7 @@ import { CarController } from './controllers/CarController.js';
 import process from 'process';
 import { BidController } from './controllers/BidController.js';
 import { getIdFromToken } from './utils/jwt.js';
+import { UserController } from './controllers/UserController.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -21,6 +22,7 @@ process.on('beforeExit', () => {
 const resolvers = { Query, Car, Mutation, Subscription };
 
 (async () => {
+	const userController = new UserController();
 	const carController = new CarController();
 	const bidController = new BidController();
 
@@ -47,6 +49,7 @@ const resolvers = { Query, Car, Mutation, Subscription };
 			const token = req.headers.authorization || undefined;
 			const userId = getIdFromToken(token);
 			return {
+				userController,
 				carController,
 				bidController,
 				userId,
