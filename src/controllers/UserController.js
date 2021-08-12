@@ -58,4 +58,14 @@ export class UserController {
 			throw new Error('Error while create user! Field(s) missing.');
 		}
 	}
+
+	async findUserByUsername(username) {
+		return await this.users.sync().then(() => {
+			return this.users.findOne({
+				where: {
+					username: username,
+				},
+			});
+		});
+	}
 }

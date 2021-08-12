@@ -32,13 +32,12 @@ const register = async (
 		password: hashedPassword,
 		emailAddress,
 	});
-	console.log(`USER::::::::::::::::::: ${user}`);
 	if (user) {
 		return {
 			isSuccess: true,
 			errorMessage: null,
 			token: jwt.sign(user.id, SECRET_KEY),
-			payload: null,
+			payload: { ...user },
 		};
 	} else {
 		return {
@@ -50,7 +49,25 @@ const register = async (
 	}
 };
 
-const login = (parent, { username, password }, context, info) => {};
+const login = async (parent, { username, password }, context, info) => {
+	const userController = context.userController;
+	const user = await userController.findUserByUsername(username);
+	if (user) {
+		const isPasswordValid = await bcrypt.compare(password, user.password);
+		if (isPasswordValid) {
+			return {
+				isSuccess: true,
+				errorMessage: null,
+				token: jwt.sign(user.id, SECRET_KEY),
+				payload: { userName: user.username, emailAddress: user.emailAddress },
+			};
+		}
+	}
+	return {
+		isSuccess: false,
+		errorMessage: 'This is a sample object',
+	};
+};
 
 export default {
 	register,

@@ -72,7 +72,7 @@ export class CarController {
 	}
 
 	async insertCar(car) {
-		await this.cars.sync().then(() => {
+		return await this.cars.sync().then(() => {
 			return this.cars.create(car);
 		});
 	}
