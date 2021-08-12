@@ -12,6 +12,7 @@ import typeDefs from './shemas/schema.js';
 import { CarController } from './controllers/CarController.js';
 import process from 'process';
 import { BidController } from './controllers/BidController.js';
+import { getIdFromToken } from './utils/jwt.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -42,9 +43,14 @@ const resolvers = { Query, Car, Mutation, Subscription };
 
 	const server = new ApolloServer({
 		schema,
-		context: {
-			carController,
-			bidController,
+		context: ({ req }) => {
+			const token = req.headers.authorization || undefined;
+			const userId = getIdFromToken(token);
+			return {
+				carController,
+				bidController,
+				userId,
+			};
 		},
 	});
 

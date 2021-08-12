@@ -24,6 +24,19 @@ const mutations = gql`
 		): Car
 
 		deleteCar(id: Int!): String!
+
+		register(
+			username: String!
+			password: String!
+			emailAddress: String!
+		): AuthPayload!
+		login(username: String!, password: String!): AuthPayload!
+	}
+
+	type AuthPayload {
+		isSuccess: Boolean
+		token: String
+		payload: User
 	}
 `;
 
