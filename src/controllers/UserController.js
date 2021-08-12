@@ -68,4 +68,14 @@ export class UserController {
 			});
 		});
 	}
+
+	async findUserById(id) {
+		return await this.users.sync().then(() => {
+			return this.users.findOne({
+				where: {
+					id: id,
+				},
+			});
+		});
+	}
 }

@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 const schema = gql`
 	type User {
 		id: ID
-		userName: String
+		username: String
 		emailAddress: String
 		userType: UserType
 	}

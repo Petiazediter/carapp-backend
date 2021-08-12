@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 const createCar = (parent, args, context, info) => {
 	if (!context.userId)
 		throw new Error('You have no access to reach this endpoint!');
-	const myCar = { ...args };
+	const myCar = { ...args, sellerId: context.userId };
 	pubsub.publish('CAR_CREATED', myCar);
 	context.carController.insertCar(myCar);
 	return myCar;
@@ -59,7 +59,7 @@ const login = async (parent, { username, password }, context, info) => {
 				isSuccess: true,
 				errorMessage: null,
 				token: jwt.sign(user.id, SECRET_KEY),
-				payload: { userName: user.username, emailAddress: user.emailAddress },
+				payload: user,
 			};
 		}
 	}

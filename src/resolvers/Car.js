@@ -1,10 +1,7 @@
-const seller = (parent, args, context, info) => {
-	const sellerId = parent.sellerId;
-	return {
-		id: sellerId,
-		userName: `${sellerId}-seller`,
-		emailAddress: 'emailaddress@email.com',
-	};
+const seller = async (parent, args, context, info) => {
+	const userController = context.userController;
+	const user = await userController.findUserById(parent.sellerId);
+	return user;
 };
 
 export default {
