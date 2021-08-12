@@ -69,9 +69,18 @@ const login = async (parent, { username, password }, context, info) => {
 	};
 };
 
+const bid = async (parent, { carId, bid }, context, info) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('You have no access to reach this endpoint!');
+	const bidController = context.bidController;
+	const dbBid = await bidController.createBid(carId, bid, userId);
+	return dbBid;
+};
+
 export default {
 	register,
 	login,
 	createCar,
 	deleteCar,
+	bid,
 };

@@ -6,7 +6,7 @@ export class BidController {
 		this.connection = getConnection();
 		this.bids = this.connection.define('bids', {
 			id: {
-				type: Sequelize.STRING,
+				type: Sequelize.INTEGER,
 				field: 'id',
 				allowNull: false,
 				primaryKey: true,
@@ -17,9 +17,14 @@ export class BidController {
 				field: 'bid',
 				allowNull: false,
 			},
-			sellerId: {
+			userId: {
 				type: Sequelize.INTEGER,
 				field: 'seller_id',
+				allowNull: false,
+			},
+			carId: {
+				type: Sequelize.INTEGER,
+				field: 'car_id',
 				allowNull: false,
 			},
 		});
@@ -27,5 +32,15 @@ export class BidController {
 
 	getBidsTable() {
 		return this.bids;
+	}
+
+	async createBid(carId, bid, sellerId) {
+		return await this.bids.sync().then(() => {
+			return this.bids.create({
+				bid: bid,
+				userId: sellerId,
+				carId: carId,
+			});
+		});
 	}
 }

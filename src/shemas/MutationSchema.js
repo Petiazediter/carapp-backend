@@ -31,6 +31,8 @@ const mutations = gql`
 			emailAddress: String!
 		): AuthPayload!
 		login(username: String!, password: String!): AuthPayload!
+
+		bid(carId: Int!, bid: Int!): Bid
 	}
 
 	type AuthPayload {

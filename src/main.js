@@ -21,19 +21,24 @@ process.on('beforeExit', () => {
 
 const resolvers = { Query, Car, Mutation, Subscription };
 
+const createRelations = (userController, carController, bidController) => {
+	const Cars = carController.getCarsTable();
+	const Bids = bidController.getBidsTable();
+	const Users = userController.getUsersTable();
+
+	Cars.hasMany(Bids);
+	Bids.belongsTo(Cars);
+
+	Cars.hasMany(Bids);
+	Bids.belongsTo(Users);
+};
+
 (async () => {
 	const userController = new UserController();
 	const carController = new CarController();
 	const bidController = new BidController();
 
-	carController
-		.getCarsTable()
-		.hasMany(bidController.getBidsTable(), { as: 'bids' });
-
-	bidController.getBidsTable().belongsTo(carController.getCarsTable(), {
-		foreignKey: 'bid_id',
-		as: 'car',
-	});
+	createRelations(userController, carController, bidController);
 
 	const app = express();
 	const httpServer = createServer(app);
