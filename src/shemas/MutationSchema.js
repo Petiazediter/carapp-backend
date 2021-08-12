@@ -18,17 +18,9 @@ const mutations = gql`
 			exterior: String!
 			interior: String!
 			highlightsTitle: String!
-			highlightsItems: [String!]!
 			equipmentTitle: String!
-			equipmentItems: [String!]!
-			flaws: [String!]!
 			serviceHistroy: String!
-			extraItems: [String!]!
 			ownerShipHistory: String!
-			videos: [String!]!
-			exteriorImages: [String!]!
-			interiorImages: [String!]!
-			paperImages: [String!]!
 		): Car
 
 		deleteCar(id: Int!): String!

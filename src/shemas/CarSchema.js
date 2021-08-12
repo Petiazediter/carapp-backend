@@ -19,18 +19,18 @@ const schema = gql`
 		exterior: String!
 		interior: String!
 		highlightsTitle: String!
-		highlightsItems: [String!]!
+		highlightsItems: [String]
 		equipmentTitle: String!
-		equipmentItems: [String!]!
-		flaws: [String!]!
+		equipmentItems: [String]
+		flaws: [String]
 		serviceHistroy: String!
-		extraItems: [String!]!
+		extraItems: [String]
 		ownerShipHistory: String!
-		videos: [String!]!
-		exteriorImages: [String!]!
-		interiorImages: [String!]!
-		paperImages: [String!]!
-		bids: [Bid!]!
+		videos: [String]
+		exteriorImages: [String]
+		interiorImages: [String]
+		paperImages: [String]
+		bids: [Bid]
 	}
 
 	enum Transmission {
