@@ -5,6 +5,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import Query from './resolvers/Query.js';
+import Bid from './resolvers/Bid.js';
 import Car from './resolvers/Car.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
@@ -19,7 +20,7 @@ process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
 });
 
-const resolvers = { Query, Car, Mutation, Subscription };
+const resolvers = { Query, Car, Mutation, Subscription, Bid };
 
 const createRelations = (userController, carController, bidController) => {
 	const Cars = carController.getCarsTable();

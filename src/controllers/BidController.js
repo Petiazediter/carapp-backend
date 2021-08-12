@@ -43,4 +43,10 @@ export class BidController {
 			});
 		});
 	}
+
+	async getBidById(bidId) {
+		return await this.bids.sync().then(() => {
+			return this.bids.findByPk(bidId);
+		});
+	}
 }
