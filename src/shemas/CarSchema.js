@@ -27,9 +27,9 @@ const schema = gql`
 		extraItems: [String]
 		ownerShipHistory: String!
 		videos: [String]
-		exteriorImages: [String]
-		interiorImages: [String]
-		paperImages: [String]
+		exteriorImages: [Image]
+		interiorImages: [Image]
+		paperImages: [Image]
 		bids: [Bid]
 	}
 
