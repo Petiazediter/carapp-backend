@@ -58,6 +58,21 @@ export class CarController {
 				field: 'km',
 				allowNull: false,
 			},
+			body: {
+				type: Sequelize.STRING,
+				field: 'body',
+				allowNull: false,
+			},
+			driveTrain: {
+				type: Sequelize.STRING,
+				field: 'drive_train',
+				allowNull: false,
+			},
+			transmission: {
+				type: Sequelize.STRING,
+				field: 'transmission',
+				allowNull: false,
+			},
 		});
 	}
 
