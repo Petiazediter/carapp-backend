@@ -6,6 +6,7 @@ const schema = gql`
 		username: String
 		emailAddress: String
 		userType: UserType
+		cars: [Car]
 	}
 
 	enum UserType {

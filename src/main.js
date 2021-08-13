@@ -7,6 +7,7 @@ import { ApolloServer } from 'apollo-server-express';
 import Query from './resolvers/Query.js';
 import Bid from './resolvers/Bid.js';
 import Car from './resolvers/Car.js';
+import User from './resolvers/User.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
 import typeDefs from './shemas/schema.js';
@@ -20,18 +21,29 @@ process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
 });
 
-const resolvers = { Query, Car, Mutation, Subscription, Bid };
+const resolvers = { Query, Car, Mutation, Subscription, Bid, User };
 
-const createRelations = (userController, carController, bidController) => {
+const createRelations = async (
+	userController,
+	carController,
+	bidController
+) => {
 	const Cars = carController.getCarsTable();
 	const Bids = bidController.getBidsTable();
 	const Users = userController.getUsersTable();
+
+	await Cars.sync();
+	await Users.sync();
+	await Bids.sync();
 
 	Cars.hasMany(Bids);
 	Bids.belongsTo(Cars);
 
 	Cars.hasMany(Bids);
 	Bids.belongsTo(Users);
+
+	Users.hasMany(Cars);
+	Cars.belongsTo(Users);
 };
 
 (async () => {
@@ -39,7 +51,7 @@ const createRelations = (userController, carController, bidController) => {
 	const carController = new CarController();
 	const bidController = new BidController();
 
-	createRelations(userController, carController, bidController);
+	await createRelations(userController, carController, bidController);
 
 	const app = express();
 	const httpServer = createServer(app);

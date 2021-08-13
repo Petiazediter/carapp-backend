@@ -4,7 +4,6 @@ const mutations = gql`
 	type Mutation {
 		createCar(
 			name: String!
-			sellerId: Int!
 			brand: String!
 			model: String!
 			minBid: Int!

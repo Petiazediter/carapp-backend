@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 const createCar = (parent, args, context, info) => {
 	if (!context.userId)
 		throw new Error('You have no access to reach this endpoint!');
-	const myCar = { ...args, sellerId: context.userId };
+	const myCar = { ...args, userId: context.userId };
 	pubsub.publish('CAR_CREATED', myCar);
 	context.carController.insertCar(myCar);
 	return myCar;
@@ -27,6 +27,7 @@ const register = async (
 ) => {
 	const userController = context.userController;
 	const hashedPassword = await bcrypt.hash(password, 5);
+
 	const user = await userController.createUser({
 		username,
 		password: hashedPassword,

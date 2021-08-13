@@ -17,9 +17,9 @@ export class CarController {
 				field: 'car_name',
 				allowNull: false,
 			},
-			sellerId: {
+			userId: {
 				type: Sequelize.INTEGER,
-				field: 'seller_id',
+				field: 'userId',
 				allowNull: false,
 			},
 			brand: {
