@@ -16,6 +16,16 @@ class ImageController {
 				field: 'url',
 				allowNull: false,
 			},
+			carId: {
+				type: Sequelize.INTEGER,
+				field: 'carId',
+				allowNull: false,
+			},
+			type: {
+				type: Sequelize.STRING,
+				field: 'type',
+				allowNull: false,
+			},
 		});
 	}
 
