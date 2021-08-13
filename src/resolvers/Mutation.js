@@ -65,7 +65,7 @@ const login = async (parent, { username, password }, context, info) => {
 	}
 	return {
 		isSuccess: false,
-		errorMessage: 'This is a sample object',
+		errorMessage: 'Username or password invalid.',
 	};
 };
 
