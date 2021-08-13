@@ -83,7 +83,11 @@ const addImageUrlToCar = async (
 	{ url, carId, imageType },
 	context,
 	info
-) => {};
+) => {
+	const imageController = context.imageController;
+	const image = await imageController.createImage(url, carId, imageType);
+	return image;
+};
 
 export default {
 	register,

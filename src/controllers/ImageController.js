@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import { getConnection } from './Database.js';
 
 class ImageController {
 	constructor() {
@@ -39,11 +40,15 @@ class ImageController {
 		});
 	}
 
-	async createImage(url) {
+	async createImage(url, carId, imageType) {
 		return await this.images.sync().then(() => {
 			return this.images.create({
 				url,
+				carId,
+				type: imageType,
 			});
 		});
 	}
 }
+
+export default ImageController;

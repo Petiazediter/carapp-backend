@@ -16,7 +16,7 @@ import process from 'process';
 import { BidController } from './controllers/BidController.js';
 import { getIdFromToken } from './utils/jwt.js';
 import { UserController } from './controllers/UserController.js';
-import { ImageController } from './controllers/ImageController.js';
+import ImageController from './controllers/ImageController.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -84,6 +84,7 @@ const createRelations = async (
 				userController,
 				carController,
 				bidController,
+				imageController,
 				userId,
 			};
 		},

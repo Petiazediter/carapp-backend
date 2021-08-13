@@ -33,7 +33,14 @@ const mutations = gql`
 
 		bid(carId: Int!, bid: Int!): Bid
 
-		addImageUrlToCar(url: String!, carId: Int!, imageType: ImageType!): Car
+		addImageUrlToCar(url: String!, carId: Int!, imageType: ImageType!): Image
+	}
+
+	type Image {
+		id: Int!
+		url: String!
+		type: String!
+		carId: Int!
 	}
 
 	type AuthPayload {
