@@ -78,10 +78,18 @@ const bid = async (parent, { carId, bid }, context, info) => {
 	return dbBid;
 };
 
+const addImageUrlToCar = async (
+	parent,
+	{ url, carId, imageType },
+	context,
+	info
+) => {};
+
 export default {
 	register,
 	login,
 	createCar,
 	deleteCar,
 	bid,
+	addImageUrlToCar,
 };

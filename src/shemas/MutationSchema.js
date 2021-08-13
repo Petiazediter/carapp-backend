@@ -32,6 +32,8 @@ const mutations = gql`
 		login(username: String!, password: String!): AuthPayload!
 
 		bid(carId: Int!, bid: Int!): Bid
+
+		addImageUrlToCar(url: String!, carId: Int!, imageType: ImageType!): Car
 	}
 
 	type AuthPayload {
@@ -39,6 +41,12 @@ const mutations = gql`
 		errorMessage: String
 		token: String
 		payload: User
+	}
+
+	enum ImageType {
+		EXTERIOR
+		INTERIOR
+		PAPER
 	}
 `;
 
