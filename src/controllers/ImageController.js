@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 class ImageController {
 	constructor() {
 		this.connection = getConnection();
-		this.bids = this.connection.define('images', {
+		this.images = this.connection.define('images', {
 			id: {
 				type: Sequelize.INTEGER,
 				field: 'id',
@@ -20,18 +20,18 @@ class ImageController {
 	}
 
 	getImagesTable() {
-		return this.bids;
+		return this.images;
 	}
 
 	async getImageUrlById(id) {
-		return await this.bids.sync().then(() => {
-			return this.bids.findByPk(id);
+		return await this.images.sync().then(() => {
+			return this.images.findByPk(id);
 		});
 	}
 
 	async createImage(url) {
-		return await this.bids.sync().then(() => {
-			return this.bids.create({
+		return await this.images.sync().then(() => {
+			return this.images.create({
 				url,
 			});
 		});
