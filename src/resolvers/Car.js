@@ -28,6 +28,12 @@ const paperImages = async (parent, args, context, info) => {
 	return getImageByType(car, 'PAPER');
 };
 
+const videos = async (parent, args, context, info) => {
+	const carController = context.carController;
+	const car = await carController.findCarById(parent.id);
+	return getImageByType(car, 'VIDEO');
+};
+
 const getImageByType = async (car, type) => {
 	const images = await car.getImages();
 	return images.filter((value) => value.type === type);
@@ -39,4 +45,5 @@ export default {
 	interiorImages,
 	paperImages,
 	exteriorImages,
+	videos,
 };

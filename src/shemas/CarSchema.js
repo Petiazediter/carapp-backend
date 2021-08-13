@@ -26,7 +26,7 @@ const schema = gql`
 		serviceHistroy: String!
 		extraItems: [String]
 		ownerShipHistory: String!
-		videos: [String]
+		videos: [Image]
 		exteriorImages: [Image]
 		interiorImages: [Image]
 		paperImages: [Image]

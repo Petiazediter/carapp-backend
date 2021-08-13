@@ -54,6 +54,7 @@ const mutations = gql`
 		EXTERIOR
 		INTERIOR
 		PAPER
+		VIDEO
 	}
 `;
 
