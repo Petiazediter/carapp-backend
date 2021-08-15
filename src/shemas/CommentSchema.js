@@ -1,5 +1,24 @@
 import { gql } from 'apollo-server';
 
-const commentSchema = gql``;
+const commentSchema = gql`
+	type Comment {
+		id: Int!
+		userId: Int!
+		user: User
+		carId: Int!
+		car: Car
+		comment: String!
+		answers: [Answer]
+	}
 
-export default gql;
+	type Answer {
+		id: Int!
+		userId: Int!
+		user: User
+		commentId: Int!
+		comment: Comment
+		answer: String!
+	}
+`;
+
+export default commentSchema;
