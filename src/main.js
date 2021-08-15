@@ -17,6 +17,7 @@ import { BidController } from './controllers/BidController.js';
 import { getIdFromToken } from './utils/jwt.js';
 import { UserController } from './controllers/UserController.js';
 import ImageController from './controllers/ImageController.js';
+import { CommentController } from './controllers/CommentController.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -24,18 +25,20 @@ process.on('beforeExit', () => {
 
 const resolvers = { Query, Car, Mutation, Subscription, Bid, User };
 
-const createRelations = async (
-	userController,
-	carController,
-	bidController,
-	imageController
-) => {
-	const Cars = carController.getCarsTable();
-	const Bids = bidController.getBidsTable();
-	const Users = userController.getUsersTable();
-	const Images = imageController.getImagesTable();
+const createRelations = async (controllers) => {
+	const Cars = controllers.carController.getCarsTable();
+	const Bids = controllers.bidController.getBidsTable();
+	const Users = controllers.userController.getUsersTable();
+	const Images = controllers.imageController.getImagesTable();
+	const Comments = controllers.commentController.getCommentsTable();
 
-	await Promise.all([Cars.sync(), Users.sync(), Bids.sync(), Images.sync()]);
+	await Promise.all([
+		Cars.sync(),
+		Users.sync(),
+		Bids.sync(),
+		Images.sync(),
+		Comments.sync(),
+	]);
 
 	// Link many bids to one car.
 	Cars.hasMany(Bids);
@@ -52,20 +55,18 @@ const createRelations = async (
 	// Link many image to one car
 	Cars.hasMany(Images);
 	Images.belongsTo(Cars);
+
+	// Link many comment to one car
+	Cars.hasMany(Comments);
+	Comments.belongsTo(Cars);
+
+	// Link many comment to one user
+	Users.hasMany(Comments);
+	Comments.belongsTo(Users);
 };
 
-(async () => {
-	const userController = new UserController();
-	const carController = new CarController();
-	const bidController = new BidController();
-	const imageController = new ImageController();
-
-	await createRelations(
-		userController,
-		carController,
-		bidController,
-		imageController
-	);
+(async (controllers) => {
+	await createRelations(controllers);
 
 	const app = express();
 	const httpServer = createServer(app);
@@ -81,10 +82,10 @@ const createRelations = async (
 			const token = req.headers.authorization || undefined;
 			const userId = getIdFromToken(token);
 			return {
-				userController,
-				carController,
-				bidController,
-				imageController,
+				userController: controllers.userController,
+				carController: controllers.carController,
+				bidController: controllers.bidController,
+				imageController: controllers.imageController,
 				userId,
 			};
 		},
@@ -107,4 +108,10 @@ const createRelations = async (
 	httpServer.listen(PORT, () => {
 		console.log(`🚀️ Apollo Server ready at http://localhost:${PORT}/graphql`);
 	});
-})();
+})({
+	userController: new UserController(),
+	carController: new CarController(),
+	bidController: new BidController(),
+	imageController: new ImageController(),
+	commentController: new CommentController(),
+});
