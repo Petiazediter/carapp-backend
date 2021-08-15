@@ -33,4 +33,14 @@ export class CommentController {
 	getCommentsTable() {
 		return this.comments;
 	}
+
+	async createComment(text, carId, userId) {
+		return await this.comments.sync().then(() => {
+			return this.comments.create({
+				userId: userId,
+				carId,
+				comment: text,
+			});
+		});
+	}
 }

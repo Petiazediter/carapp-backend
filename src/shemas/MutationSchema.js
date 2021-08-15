@@ -34,6 +34,8 @@ const mutations = gql`
 		bid(carId: Int!, bid: Int!): Bid
 
 		addImageUrlToCar(url: String!, carId: Int!, imageType: ImageType!): Image
+
+		addComment(text: String!, carId: Int!): Comment
 	}
 
 	type Image {

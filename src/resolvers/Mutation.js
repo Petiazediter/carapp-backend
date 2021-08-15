@@ -89,6 +89,15 @@ const addImageUrlToCar = async (
 	return image;
 };
 
+const addComment = async (parent, { text, carId }, context, info) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authenticated!');
+
+	const commentController = context.commentController;
+	const comment = await commentController.createComment(text, carId, userId);
+	return comment;
+};
+
 export default {
 	register,
 	login,
@@ -96,4 +105,5 @@ export default {
 	deleteCar,
 	bid,
 	addImageUrlToCar,
+	addComment,
 };
