@@ -31,6 +31,7 @@ const schema = gql`
 		interiorImages: [Image]
 		paperImages: [Image]
 		bids: [Bid]
+		comments: [Comment]
 	}
 
 	enum Transmission {

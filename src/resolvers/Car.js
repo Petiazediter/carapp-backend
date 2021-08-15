@@ -39,6 +39,12 @@ const getImageByType = async (car, type) => {
 	return images.filter((value) => value.type === type);
 };
 
+const comments = async (parent, args, context) => {
+	const carController = context.carController;
+	const car = await carController.findCarById(parent.id);
+	return car.getComments();
+};
+
 export default {
 	seller,
 	bids,
@@ -46,4 +52,5 @@ export default {
 	paperImages,
 	exteriorImages,
 	videos,
+	comments,
 };

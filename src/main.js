@@ -10,6 +10,7 @@ import Car from './resolvers/Car.js';
 import User from './resolvers/User.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
+import Comment from './resolvers/Comment.js';
 import typeDefs from './shemas/schema.js';
 import { CarController } from './controllers/CarController.js';
 import process from 'process';
@@ -23,7 +24,7 @@ process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
 });
 
-const resolvers = { Query, Car, Mutation, Subscription, Bid, User };
+const resolvers = { Query, Car, Mutation, Subscription, Bid, User, Comment };
 
 const createRelations = async (controllers) => {
 	const Cars = controllers.carController.getCarsTable();
