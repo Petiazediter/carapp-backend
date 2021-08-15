@@ -5,14 +5,16 @@ import BidSchema from './BidSchema.js';
 import Subscription from './Subscription.js';
 import Query from './QuerySchema.js';
 import Mutation from './MutationSchema.js';
+import Comment from './CommentSchema.js';
 
 const typeDefs = gql`
-	${CarSchema}
-	${UserSchema}
-	${BidSchema}
 	${Query}
 	${Mutation}
 	${Subscription}
+	${CarSchema}
+	${UserSchema}
+	${BidSchema}
+	${Comment}
 `;
 
 export default typeDefs;
