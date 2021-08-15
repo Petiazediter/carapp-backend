@@ -33,4 +33,16 @@ export class AnswerController {
 	getAnswersTable() {
 		return this.answers;
 	}
+
+	async addAnswer(answer) {
+		return await this.answers.sync().then(() => {
+			return this.answers.create(answer);
+		});
+	}
+
+	async getAnswerById(id) {
+		return await this.answers.sync().then(() => {
+			return this.answers.findByPk(id);
+		});
+	}
 }

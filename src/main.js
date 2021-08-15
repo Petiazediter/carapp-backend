@@ -11,6 +11,7 @@ import User from './resolvers/User.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
 import Comment from './resolvers/Comment.js';
+import Answer from './resolvers/Answer.js';
 import typeDefs from './shemas/schema.js';
 import { CarController } from './controllers/CarController.js';
 import process from 'process';
@@ -19,12 +20,22 @@ import { getIdFromToken } from './utils/jwt.js';
 import { UserController } from './controllers/UserController.js';
 import ImageController from './controllers/ImageController.js';
 import { CommentController } from './controllers/CommentController.js';
+import { AnswerController } from './controllers/AnswerController.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
 });
 
-const resolvers = { Query, Car, Mutation, Subscription, Bid, User, Comment };
+const resolvers = {
+	Query,
+	Car,
+	Mutation,
+	Subscription,
+	Bid,
+	User,
+	Comment,
+	Answer,
+};
 
 const createRelations = async (controllers) => {
 	const Cars = controllers.carController.getCarsTable();
@@ -32,6 +43,7 @@ const createRelations = async (controllers) => {
 	const Users = controllers.userController.getUsersTable();
 	const Images = controllers.imageController.getImagesTable();
 	const Comments = controllers.commentController.getCommentsTable();
+	const Answers = controllers.answerController.getAnswersTable();
 
 	await Promise.all([
 		Cars.sync(),
@@ -39,6 +51,7 @@ const createRelations = async (controllers) => {
 		Bids.sync(),
 		Images.sync(),
 		Comments.sync(),
+		Answers.sync(),
 	]);
 
 	// Link many bids to one car.
@@ -64,6 +77,12 @@ const createRelations = async (controllers) => {
 	// Link many comment to one user
 	Users.hasMany(Comments);
 	Comments.belongsTo(Users);
+
+	Comments.hasMany(Answers);
+	Answers.belongsTo(Comments);
+
+	Users.hasMany(Answers);
+	Answers.belongsTo(Users);
 };
 
 (async (controllers) => {
@@ -112,4 +131,5 @@ const createRelations = async (controllers) => {
 	bidController: new BidController(),
 	imageController: new ImageController(),
 	commentController: new CommentController(),
+	answerController: new AnswerController(),
 });

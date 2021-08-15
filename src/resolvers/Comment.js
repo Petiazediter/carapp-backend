@@ -10,7 +10,14 @@ const car = async (parent, args, context) => {
 	return await carController.findCarById(carId);
 };
 
+const answers = async (parent, args, context) => {
+	const commentId = parent.id;
+	const comment = await context.commentController.getCommentById(commentId);
+	return comment.getAnswers();
+};
+
 export default {
 	user,
 	car,
+	answers,
 };

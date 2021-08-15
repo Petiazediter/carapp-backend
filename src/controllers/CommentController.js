@@ -43,4 +43,10 @@ export class CommentController {
 			});
 		});
 	}
+
+	async getCommentById(id) {
+		return await this.comments.sync().then(() => {
+			return this.comments.findByPk(id);
+		});
+	}
 }

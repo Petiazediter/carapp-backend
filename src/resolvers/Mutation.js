@@ -98,6 +98,19 @@ const addComment = async (parent, { text, carId }, context, info) => {
 	return comment;
 };
 
+const addAnswer = async (parent, { text, commentId }, context) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authenticated!');
+
+	const answerController = context.answerController;
+	const answer = await answerController.addAnswer({
+		userId,
+		commentId,
+		answer: text,
+	});
+	return answer;
+};
+
 export default {
 	register,
 	login,
@@ -106,4 +119,5 @@ export default {
 	bid,
 	addImageUrlToCar,
 	addComment,
+	addAnswer,
 };
