@@ -37,7 +37,7 @@ const resolvers = {
 	Answer,
 };
 
-const createRelations = async (controllers) => {
+const createRelations = async (controllers: any) => {
 	const Cars = controllers.carController.getCarsTable();
 	const Bids = controllers.bidController.getBidsTable();
 	const Users = controllers.userController.getUsersTable();
