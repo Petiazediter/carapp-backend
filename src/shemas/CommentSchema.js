@@ -15,9 +15,12 @@ const commentSchema = gql`
 		id: Int!
 		userId: Int!
 		user: User
-		commentId: Int!
+		commentId: Int
 		comment: Comment
-		answer: String!
+		answerId: Int
+		answer: Answer
+		answers: [Answer]
+		text: String!
 	}
 `;
 

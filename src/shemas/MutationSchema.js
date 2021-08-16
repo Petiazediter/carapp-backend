@@ -37,7 +37,7 @@ const mutations = gql`
 
 		addComment(text: String!, carId: Int!): Comment
 
-		addAnswer(text: String!, commentId: Int!): Answer
+		addAnswer(text: String!, commentId: Int, answerId: Int): Answer
 	}
 
 	type Image {

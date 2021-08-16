@@ -20,9 +20,14 @@ export class AnswerController {
 			commentId: {
 				type: Sequelize.INTEGER,
 				field: 'commentId',
-				allowNull: false,
+				allowNull: true,
 			},
-			answer: {
+			answerId: {
+				type: Sequelize.INTEGER,
+				field: 'answerId',
+				allowNull: true,
+			},
+			text: {
 				type: Sequelize.STRING,
 				field: 'answer',
 				allowNull: false,
@@ -43,6 +48,16 @@ export class AnswerController {
 	async getAnswerById(id) {
 		return await this.answers.sync().then(() => {
 			return this.answers.findByPk(id);
+		});
+	}
+
+	async getAnswersToAnswer(id) {
+		return await this.answers.sync().then(() => {
+			return this.answers.findAll({
+				where: {
+					answerId: id,
+				},
+			});
 		});
 	}
 }

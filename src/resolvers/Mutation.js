@@ -98,15 +98,16 @@ const addComment = async (parent, { text, carId }, context, info) => {
 	return comment;
 };
 
-const addAnswer = async (parent, { text, commentId }, context) => {
+const addAnswer = async (parent, { text, commentId, answerId }, context) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authenticated!');
 
 	const answerController = context.answerController;
 	const answer = await answerController.addAnswer({
 		userId,
-		commentId,
-		answer: text,
+		commentId: commentId ? commentId : null,
+		answerId: answerId ? answerId : null,
+		text,
 	});
 	return answer;
 };
