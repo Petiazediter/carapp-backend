@@ -1,6 +1,6 @@
-import { getConnection } from './Database.js';
+import { getConnection } from './Database';
 import Sequelize from 'sequelize';
-import DbAnswer from '../types/controllers/ControllerAnswer.js';
+import DbAnswer from '../types/controllers/ControllerAnswer';
 
 export class AnswerController {
 	connection: Sequelize.Sequelize;

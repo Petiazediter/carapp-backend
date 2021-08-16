@@ -1,4 +1,4 @@
-import { getConnection } from './Database.js';
+import { getConnection } from './Database';
 import Sequelize from 'sequelize';
 
 export class CommentController {

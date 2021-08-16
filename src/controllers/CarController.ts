@@ -1,6 +1,6 @@
-import Sequelize, { Model, ModelCtor } from 'sequelize';
-import DbCar from '../types/controllers/ControllerCar.js';
-import { getConnection } from './Database.js';
+import Sequelize, { Model } from 'sequelize';
+import DbCar from '../types/controllers/ControllerCar';
+import { getConnection } from './Database';
 
 export class CarController {
 	connection: Sequelize.Sequelize;

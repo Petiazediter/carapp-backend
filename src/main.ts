@@ -17,11 +17,11 @@ import { CarController } from './controllers/CarController';
 import process from 'process';
 import { BidController } from './controllers/BidController';
 import { getIdFromToken } from './utils/jwt';
-import { UserController } from './controllers/UserController.js';
+import { UserController } from './controllers/UserController';
 import ImageController from './controllers/ImageController';
 import { CommentController } from './controllers/CommentController';
 import { AnswerController } from './controllers/AnswerController';
-import Context, { ContextControllers } from './types/ContextModel.js';
+import Context, { ContextControllers } from './types/ContextModel';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');

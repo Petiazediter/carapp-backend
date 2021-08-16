@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
-import { ImageType } from '../types/resolvers/ImageMode.js';
-import { getConnection } from './Database.js';
+import { ImageType } from '../types/resolvers/ImageMode';
+import { getConnection } from './Database';
 
 class ImageController {
 	connection: Sequelize.Sequelize;
