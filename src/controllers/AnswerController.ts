@@ -1,7 +1,11 @@
 import { getConnection } from './Database.js';
 import Sequelize from 'sequelize';
+import DbAnswer from '../types/controllers/ControllerAnswer.js';
 
 export class AnswerController {
+	connection: Sequelize.Sequelize;
+	answers: any;
+
 	constructor() {
 		this.connection = getConnection();
 		this.answers = this.connection.define('answers', {
@@ -39,19 +43,19 @@ export class AnswerController {
 		return this.answers;
 	}
 
-	async addAnswer(answer) {
+	async addAnswer(answer: DbAnswer) {
 		return await this.answers.sync().then(() => {
 			return this.answers.create(answer);
 		});
 	}
 
-	async getAnswerById(id) {
+	async getAnswerById(id: number) {
 		return await this.answers.sync().then(() => {
 			return this.answers.findByPk(id);
 		});
 	}
 
-	async getAnswersToAnswer(id) {
+	async getAnswersToAnswer(id: number) {
 		return await this.answers.sync().then(() => {
 			return this.answers.findAll({
 				where: {

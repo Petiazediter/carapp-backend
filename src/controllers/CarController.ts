@@ -1,7 +1,11 @@
-import Sequelize from 'sequelize';
+import Sequelize, { Model, ModelCtor } from 'sequelize';
+import DbCar from '../types/controllers/ControllerCar.js';
 import { getConnection } from './Database.js';
 
 export class CarController {
+	connection: Sequelize.Sequelize;
+	cars: any;
+
 	constructor() {
 		this.connection = getConnection();
 		this.cars = this.connection.define('cars', {
@@ -86,22 +90,22 @@ export class CarController {
 		});
 	}
 
-	async findCarById(id) {
+	async findCarById(id: number) {
 		return await this.cars.sync().then(() => {
 			return this.cars.findByPk(id);
 		});
 	}
 
-	async insertCar(car) {
+	async insertCar(car: DbCar) {
 		return await this.cars.sync().then(() => {
 			return this.cars.create(car);
 		});
 	}
 
-	async deleteCarById(id) {
+	async deleteCarById(id: number): Promise<void> {
 		await this.cars.sync().then(() => {
-			this.cars.findByPk(id).then((dbCar) => {
-				return dbCar.destroy();
+			this.cars.findByPk(id).then((dbCar: Model | null) => {
+				if (dbCar != null) return dbCar.destroy();
 			});
 		});
 	}

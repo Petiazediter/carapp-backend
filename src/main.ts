@@ -102,7 +102,7 @@ const createRelations = async (controllers: any) => {
 			const token = req.headers.authorization || undefined;
 			const userId = getIdFromToken(token);
 			return {
-				...controllers,
+				controllers,
 				userId,
 			};
 		},

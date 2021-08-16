@@ -2,6 +2,9 @@ import { getConnection } from './Database.js';
 import Sequelize from 'sequelize';
 
 export class CommentController {
+	connection: Sequelize.Sequelize;
+	comments: any;
+
 	constructor() {
 		this.connection = getConnection();
 		this.comments = this.connection.define('comments', {
@@ -34,7 +37,7 @@ export class CommentController {
 		return this.comments;
 	}
 
-	async createComment(text, carId, userId) {
+	async createComment(text: string, carId: number, userId: number) {
 		return await this.comments.sync().then(() => {
 			return this.comments.create({
 				userId: userId,
@@ -44,7 +47,7 @@ export class CommentController {
 		});
 	}
 
-	async getCommentById(id) {
+	async getCommentById(id: number) {
 		return await this.comments.sync().then(() => {
 			return this.comments.findByPk(id);
 		});

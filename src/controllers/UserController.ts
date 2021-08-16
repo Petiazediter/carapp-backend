@@ -1,7 +1,10 @@
-import { getConnection } from './Database.js';
+import { getConnection } from './Database';
 import Sequelize from 'sequelize';
 
 export class UserController {
+	connection: Sequelize.Sequelize;
+	users: any;
+
 	constructor() {
 		this.connection = getConnection();
 		this.users = this.connection.define('users', {
@@ -34,7 +37,7 @@ export class UserController {
 		return this.users;
 	}
 
-	async getUserByEmailOrUsername(emailAddress, username) {
+	async getUserByEmailOrUsername(emailAddress: string, username: string) {
 		return await this.users.findOne({
 			where: {
 				[Sequelize.Op.or]: [
@@ -45,7 +48,7 @@ export class UserController {
 		});
 	}
 
-	async createUser(user) {
+	async createUser(user: { emailAddress: string; username: string }) {
 		if (user) {
 			const dbUser = await this.getUserByEmailOrUsername(
 				user.emailAddress,
@@ -59,7 +62,7 @@ export class UserController {
 		}
 	}
 
-	async findUserByUsername(username) {
+	async findUserByUsername(username: string) {
 		return await this.users.sync().then(() => {
 			return this.users.findOne({
 				where: {
@@ -69,7 +72,7 @@ export class UserController {
 		});
 	}
 
-	async findUserById(id) {
+	async findUserById(id: number) {
 		return await this.users.sync().then(() => {
 			return this.users.findOne({
 				where: {

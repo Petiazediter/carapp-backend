@@ -2,6 +2,9 @@ import { getConnection } from './Database.js';
 import Sequelize from 'sequelize';
 
 export class BidController {
+	connection: Sequelize.Sequelize;
+	bids: any;
+
 	constructor() {
 		this.connection = getConnection();
 		this.bids = this.connection.define('bids', {
@@ -34,7 +37,7 @@ export class BidController {
 		return this.bids;
 	}
 
-	async createBid(carId, bid, sellerId) {
+	async createBid(carId: number, bid: number, sellerId: number) {
 		return await this.bids.sync().then(() => {
 			return this.bids.create({
 				bid: bid,
@@ -44,7 +47,7 @@ export class BidController {
 		});
 	}
 
-	async getBidById(bidId) {
+	async getBidById(bidId: number) {
 		return await this.bids.sync().then(() => {
 			return this.bids.findByPk(bidId);
 		});

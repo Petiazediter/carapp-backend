@@ -1,7 +1,11 @@
 import Sequelize from 'sequelize';
+import { ImageType } from '../types/resolvers/ImageMode.js';
 import { getConnection } from './Database.js';
 
 class ImageController {
+	connection: Sequelize.Sequelize;
+	images: any;
+
 	constructor() {
 		this.connection = getConnection();
 		this.images = this.connection.define('images', {
@@ -34,18 +38,18 @@ class ImageController {
 		return this.images;
 	}
 
-	async getImageUrlById(id) {
+	async getImageUrlById(id: number) {
 		return await this.images.sync().then(() => {
 			return this.images.findByPk(id);
 		});
 	}
 
-	async createImage(url, carId, imageType) {
+	async createImage(url: string, carId: number, imageType: ImageType) {
 		return await this.images.sync().then(() => {
 			return this.images.create({
 				url,
 				carId,
-				type: imageType,
+				type: imageType.valueOf(),
 			});
 		});
 	}

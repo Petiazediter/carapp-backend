@@ -1,4 +1,6 @@
-const user = async (parent, args, context) => {
+import Answer from '../types/resolvers/AnswerModel';
+
+const user = async (parent: Answer, args: {}, context) => {
 	const answerId = parent.id;
 	const answer = context.answerController.getAnswerById(answerId);
 	return answer.getUser();
