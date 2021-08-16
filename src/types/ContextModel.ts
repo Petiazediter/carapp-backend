@@ -1,4 +1,8 @@
 import { AnswerController } from '../controllers/AnswerController';
+import { BidController } from '../controllers/BidController';
+import { CarController } from '../controllers/CarController';
+import { CommentController } from '../controllers/CommentController';
+import ImageController from '../controllers/ImageController';
 import { UserController } from '../controllers/UserController';
 
 type Context = {
@@ -7,8 +11,12 @@ type Context = {
 };
 
 export type ContextControllers = {
-	userController: UserController;
 	answerController: AnswerController;
+	bidController: BidController;
+	carController: CarController;
+	commentController: CommentController;
+	imageController: ImageController;
+	userController: UserController;
 };
 
 export default Context;

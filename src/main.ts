@@ -11,16 +11,17 @@ import User from './resolvers/User.js';
 import Subscription from './resolvers/Subscription.js';
 import Mutation from './resolvers/Mutation.js';
 import Comment from './resolvers/Comment.js';
-import Answer from './resolvers/Answer.js';
+import Answer from './resolvers/Answer';
 import typeDefs from './shemas/schema.js';
-import { CarController } from './controllers/CarController.js';
+import { CarController } from './controllers/CarController';
 import process from 'process';
-import { BidController } from './controllers/BidController.js';
+import { BidController } from './controllers/BidController';
 import { getIdFromToken } from './utils/jwt.js';
 import { UserController } from './controllers/UserController.js';
-import ImageController from './controllers/ImageController.js';
-import { CommentController } from './controllers/CommentController.js';
-import { AnswerController } from './controllers/AnswerController.js';
+import ImageController from './controllers/ImageController';
+import { CommentController } from './controllers/CommentController';
+import { AnswerController } from './controllers/AnswerController';
+import Context, { ContextControllers } from './types/ContextModel.js';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -37,7 +38,7 @@ const resolvers = {
 	Answer,
 };
 
-const createRelations = async (controllers: any) => {
+const createRelations = async (controllers: ContextControllers) => {
 	const Cars = controllers.carController.getCarsTable();
 	const Bids = controllers.bidController.getBidsTable();
 	const Users = controllers.userController.getUsersTable();
@@ -98,7 +99,7 @@ const createRelations = async (controllers: any) => {
 
 	const server = new ApolloServer({
 		schema,
-		context: ({ req }) => {
+		context: ({ req }): Context => {
 			const token = req.headers.authorization || undefined;
 			const userId = getIdFromToken(token);
 			return {

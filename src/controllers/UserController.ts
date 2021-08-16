@@ -48,7 +48,11 @@ export class UserController {
 		});
 	}
 
-	async createUser(user: { emailAddress: string; username: string }) {
+	async createUser(user: {
+		emailAddress: string;
+		username: string;
+		password: string;
+	}) {
 		if (user) {
 			const dbUser = await this.getUserByEmailOrUsername(
 				user.emailAddress,
