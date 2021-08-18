@@ -45,6 +45,7 @@ const mutations = gql`
 		url: String!
 		type: String!
 		carId: Int!
+		car: Car
 	}
 
 	type AuthPayload {

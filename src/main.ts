@@ -12,6 +12,7 @@ import Subscription from './resolvers/Subscription';
 import Mutation from './resolvers/Mutation';
 import Comment from './resolvers/Comment';
 import Answer from './resolvers/Answer';
+import Image from './resolvers/Image';
 import typeDefs from './shemas/schema';
 import { CarController } from './controllers/CarController';
 import process from 'process';
@@ -36,6 +37,7 @@ const resolvers = {
 	User,
 	Comment,
 	Answer,
+	Image,
 };
 
 const createRelations = async (controllers: ContextControllers) => {

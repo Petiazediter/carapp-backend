@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import pubsub from '../pubsub';
 import { SECRET_KEY } from '../utils/jwt';
 import bcrypt from 'bcrypt';
-import { DriveTrain, Transmission } from '../types/resolvers/CarModel';
+import Car, { DriveTrain, Transmission } from '../types/resolvers/CarModel';
 import Context from '../types/ContextModel';
 import DbCar from '../types/controllers/ControllerCar';
 import { ImageType } from '../types/resolvers/ImageMode';
@@ -28,19 +28,23 @@ type CreateCar = {
 	userId?: number;
 };
 
-const createCar = (parent: any, args: CreateCar, context: Context) => {
+const createCar = async (parent: any, args: CreateCar, context: Context) => {
 	if (!context.userId)
 		throw new Error('You have no access to reach this endpoint!');
 	const myCar: DbCar = { ...args, userId: context.userId };
-	pubsub.publish('CAR_CREATED', myCar);
-	context.controllers.carController.insertCar(myCar);
-	return myCar;
+	const car: Car = await context.controllers.carController.insertCar(myCar);
+	pubsub.publish('CAR_CREATED', car);
+	return car;
 };
 
-const deleteCar = (parent: any, args: { id: number }, context: Context) => {
+const deleteCar = async (
+	parent: any,
+	args: { id: number },
+	context: Context
+) => {
 	if (!context.userId)
 		throw new Error('You have no access to reach this endpoint!');
-	context.controllers.carController.deleteCarById(args.id);
+	await context.controllers.carController.deleteCarById(args.id);
 	return 'Deleted.';
 };
 
@@ -66,7 +70,7 @@ const register = async (
 			isSuccess: true,
 			errorMessage: null,
 			token: jwt.sign(user.id, SECRET_KEY),
-			payload: { ...user },
+			payload: await userController.findUserById(user.id),
 		};
 	} else {
 		return {
