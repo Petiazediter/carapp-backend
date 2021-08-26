@@ -24,6 +24,7 @@ import { CommentController } from './controllers/CommentController';
 import { AnswerController } from './controllers/AnswerController';
 import Context, { ContextControllers } from './types/ContextModel';
 import { FlawsController } from './controllers/FlawsController';
+import { HighLightsController } from './controllers/HighLightsController';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -49,6 +50,7 @@ const createRelations = async (controllers: ContextControllers) => {
 	const Comments = controllers.commentController.getCommentsTable();
 	const Answers = controllers.answerController.getAnswersTable();
 	const Flaws = controllers.flawsController.getFlawsTable();
+	const HightLights = controllers.highLightsController.getHighLightsTable();
 
 	await Promise.all([
 		Cars.sync(),
@@ -58,6 +60,7 @@ const createRelations = async (controllers: ContextControllers) => {
 		Comments.sync(),
 		Answers.sync(),
 		Flaws.sync(),
+		HightLights.sync(),
 	]);
 
 	// Link many bids to one car.
@@ -141,4 +144,5 @@ const createRelations = async (controllers: ContextControllers) => {
 	commentController: new CommentController(),
 	answerController: new AnswerController(),
 	flawsController: new FlawsController(),
+	highLightsController: new HighLightsController(),
 });

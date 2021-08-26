@@ -7,6 +7,7 @@ import Context from '../types/ContextModel';
 import DbCar from '../types/controllers/ControllerCar';
 import { ImageType } from '../types/resolvers/ImageMode';
 import { FlawsController } from '../controllers/FlawsController';
+import { createIdentifier } from 'typescript';
 
 type CreateCar = {
 	name: string;
@@ -190,6 +191,30 @@ const addFlaws = async (
 	}
 };
 
+const addHighLights = async (
+	parent: any,
+	args: { carId: number; highLights: string[] },
+	context: Context
+) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authorized!');
+
+	const highlightsItems = context.controllers.highLightsController;
+	const car = await context.controllers.carController.findCarById(args.carId);
+	if (car) {
+		if (car.userId === userId) {
+			return args.highLights.map(async (highlight) => {
+				return await highlightsItems.createHighLight({
+					carId: args.carId,
+					highlight: highlight,
+				});
+			});
+		}
+		throw new Error('This is not your car!');
+	}
+	throw new Error('Car not found!');
+};
+
 export default {
 	register,
 	login,
@@ -200,4 +225,5 @@ export default {
 	addComment,
 	addAnswer,
 	addFlaws,
+	addHighLights,
 };
