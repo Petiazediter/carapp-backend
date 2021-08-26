@@ -36,6 +36,11 @@ export class CarController {
 				field: 'model',
 				allowNull: false,
 			},
+			endDate: {
+				type: Sequelize.STRING,
+				field: 'endDate',
+				allowNull: false,
+			},
 			minBid: {
 				type: Sequelize.INTEGER,
 				field: 'min_bid',

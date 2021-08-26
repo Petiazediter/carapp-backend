@@ -6,6 +6,7 @@ const schema = gql`
 		name: String!
 		userId: Int!
 		seller: User
+		endDate: String!
 		brand: String!
 		model: String!
 		minBid: Int!

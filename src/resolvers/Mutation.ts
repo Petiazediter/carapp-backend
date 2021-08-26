@@ -6,8 +6,6 @@ import Car from '../types/resolvers/CarModel';
 import Context from '../types/ContextModel';
 import DbCar from '../types/controllers/ControllerCar';
 import { ImageType } from '../types/resolvers/ImageMode';
-import { FlawsController } from '../controllers/FlawsController';
-import { createIdentifier } from 'typescript';
 
 type CreateCar = {
 	name: string;
@@ -18,6 +16,7 @@ type CreateCar = {
 	city: string;
 	vin: string;
 	km: number;
+	endDate: string;
 	body: string;
 	driveTrain: string;
 	transmission: string;

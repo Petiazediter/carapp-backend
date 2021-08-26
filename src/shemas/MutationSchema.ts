@@ -8,6 +8,7 @@ const mutations = gql`
 			model: String!
 			minBid: Int!
 			country: String!
+			endDate: String!
 			city: String!
 			vin: String!
 			km: Int!
