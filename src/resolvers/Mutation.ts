@@ -6,6 +6,7 @@ import Car from '../types/resolvers/CarModel';
 import Context from '../types/ContextModel';
 import DbCar from '../types/controllers/ControllerCar';
 import { ImageType } from '../types/resolvers/ImageMode';
+import { FlawsController } from '../controllers/FlawsController';
 
 type CreateCar = {
 	name: string;
@@ -167,6 +168,28 @@ const addAnswer = async (
 	return answer;
 };
 
+const addFlaws = async (
+	parent: any,
+	args: { carId: number; flaws: string[] },
+	context: Context
+) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authorized!');
+	const flawsTable = context.controllers.flawsController;
+	const car = await context.controllers.carController.findCarById(args.carId);
+	if (car) {
+		if (car.userId === userId) {
+			return args.flaws.map(async (flaw) => {
+				return await flawsTable.createFlaw({ carId: args.carId, flaw: flaw });
+			});
+		} else {
+			throw new Error('This is not your car!');
+		}
+	} else {
+		throw new Error('Car not found!');
+	}
+};
+
 export default {
 	register,
 	login,
@@ -176,4 +199,5 @@ export default {
 	addImageUrlToCar,
 	addComment,
 	addAnswer,
+	addFlaws,
 };

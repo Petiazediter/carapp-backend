@@ -23,6 +23,7 @@ import ImageController from './controllers/ImageController';
 import { CommentController } from './controllers/CommentController';
 import { AnswerController } from './controllers/AnswerController';
 import Context, { ContextControllers } from './types/ContextModel';
+import { FlawsController } from './controllers/FlawsController';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -47,6 +48,7 @@ const createRelations = async (controllers: ContextControllers) => {
 	const Images = controllers.imageController.getImagesTable();
 	const Comments = controllers.commentController.getCommentsTable();
 	const Answers = controllers.answerController.getAnswersTable();
+	const Flaws = controllers.flawsController.getFlawsTable();
 
 	await Promise.all([
 		Cars.sync(),
@@ -55,12 +57,15 @@ const createRelations = async (controllers: ContextControllers) => {
 		Images.sync(),
 		Comments.sync(),
 		Answers.sync(),
+		Flaws.sync(),
 	]);
 
 	// Link many bids to one car.
 	Cars.hasMany(Bids);
 	Bids.belongsTo(Cars);
 
+	Cars.hasMany(Flaws);
+	Flaws.belongsTo(Cars);
 	// Link many bids to one user
 	Users.hasMany(Bids);
 	Bids.belongsTo(Users);
@@ -135,4 +140,5 @@ const createRelations = async (controllers: ContextControllers) => {
 	imageController: new ImageController(),
 	commentController: new CommentController(),
 	answerController: new AnswerController(),
+	flawsController: new FlawsController(),
 });

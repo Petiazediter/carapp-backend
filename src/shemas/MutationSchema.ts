@@ -38,6 +38,14 @@ const mutations = gql`
 		addComment(text: String!, carId: Int!): Comment
 
 		addAnswer(text: String!, commentId: Int, answerId: Int): Answer
+
+		addFlaws(carId: Int!, flaws: [String!]!): [Flaw]
+	}
+
+	type Flaw {
+		id: Int!
+		carId: Int!
+		flaw: String!
 	}
 
 	type Image {
