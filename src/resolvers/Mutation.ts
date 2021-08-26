@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import pubsub from '../pubsub';
 import { SECRET_KEY } from '../utils/jwt';
 import bcrypt from 'bcrypt';
-import Car, { DriveTrain, Transmission } from '../types/resolvers/CarModel';
+import Car from '../types/resolvers/CarModel';
 import Context from '../types/ContextModel';
 import DbCar from '../types/controllers/ControllerCar';
 import { ImageType } from '../types/resolvers/ImageMode';

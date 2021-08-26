@@ -78,11 +78,7 @@ export class UserController {
 
 	async findUserById(id: number) {
 		return await this.users.sync().then(() => {
-			return this.users.findOne({
-				where: {
-					id: id,
-				},
-			});
+			return this.users.findByPk(id);
 		});
 	}
 }

@@ -10,7 +10,14 @@ const car = async (parent: any, { id }: { id: number }, context: Context) => {
 	return car;
 };
 
+const me = async (parent: any, args: {}, context: Context) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('You are not authorized!');
+	return context.controllers.userController.findUserById(userId);
+};
+
 export default {
 	cars,
 	car,
+	me,
 };
