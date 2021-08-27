@@ -45,12 +45,20 @@ const mutations = gql`
 		addHighLights(carId: Int!, highLights: [String!]!): [HighLight]
 
 		addEquipments(carId: Int!, equipments: [String!]!): [Equipment]
+
+		addExtraItems(carId: Int!, extraItems: [String!]!): [ExtraItem]
 	}
 
 	type HighLight {
 		id: Int!
 		carId: Int!
 		highlight: String!
+	}
+
+	type ExtraItem {
+		id: Int!
+		carId: Int!
+		extraItem: String!
 	}
 
 	type Equipment {

@@ -226,10 +226,34 @@ const addEquipments = async (
 	const car = await context.controllers.carController.findCarById(args.carId);
 	if (car) {
 		if (car.userId === userId) {
-			return args.equipments.map(async (highlight) => {
+			return args.equipments.map(async (equipment) => {
 				return await equipments.createEquipment({
 					carId: args.carId,
-					equipment: highlight,
+					equipment: equipment,
+				});
+			});
+		}
+		throw new Error('This is not your car!');
+	}
+	throw new Error('Car not found!');
+};
+
+const addExtraItems = async (
+	parent: any,
+	args: { carId: number; extraItems: string[] },
+	context: Context
+) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authorized!');
+
+	const extraItems = context.controllers.extraItemsController;
+	const car = await context.controllers.carController.findCarById(args.carId);
+	if (car) {
+		if (car.userId === userId) {
+			return args.extraItems.map(async (extraItem) => {
+				return await extraItems.createExtraItems({
+					carId: args.carId,
+					extraItem: extraItem,
 				});
 			});
 		}
@@ -250,4 +274,5 @@ export default {
 	addFlaws,
 	addHighLights,
 	addEquipments,
+	addExtraItems,
 };
