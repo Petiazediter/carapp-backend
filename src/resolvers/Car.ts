@@ -55,6 +55,24 @@ const highlightsItems = async (parent: Car, args: {}, context: Context) => {
 	return car.getHighlights();
 };
 
+const flaws = async (parent: Car, args: {}, context: Context) => {
+	const carController = context.controllers.carController;
+	const car = await carController.findCarById(parent.id);
+	return car.getFlaws();
+};
+
+const extraItems = async (parent: Car, args: {}, context: Context) => {
+	const carController = context.controllers.carController;
+	const car = await carController.findCarById(parent.id);
+	return car.getExtraItems();
+};
+
+const equipmentItems = async (parent: Car, args: {}, context: Context) => {
+	const carController = context.controllers.carController;
+	const car = await carController.findCarById(parent.id);
+	return car.getEquipments();
+};
+
 export default {
 	seller,
 	bids,
@@ -64,4 +82,7 @@ export default {
 	videos,
 	comments,
 	highlightsItems,
+	flaws,
+	extraItems,
+	equipmentItems,
 };
