@@ -214,6 +214,30 @@ const addHighLights = async (
 	throw new Error('Car not found!');
 };
 
+const addEquipments = async (
+	parent: any,
+	args: { carId: number; equipments: string[] },
+	context: Context
+) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authorized!');
+
+	const equipments = context.controllers.equipmentsController;
+	const car = await context.controllers.carController.findCarById(args.carId);
+	if (car) {
+		if (car.userId === userId) {
+			return args.equipments.map(async (highlight) => {
+				return await equipments.createEquipment({
+					carId: args.carId,
+					equipment: highlight,
+				});
+			});
+		}
+		throw new Error('This is not your car!');
+	}
+	throw new Error('Car not found!');
+};
+
 export default {
 	register,
 	login,
@@ -225,4 +249,5 @@ export default {
 	addAnswer,
 	addFlaws,
 	addHighLights,
+	addEquipments,
 };

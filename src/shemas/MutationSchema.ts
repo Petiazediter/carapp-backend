@@ -43,12 +43,20 @@ const mutations = gql`
 		addFlaws(carId: Int!, flaws: [String!]!): [Flaw]
 
 		addHighLights(carId: Int!, highLights: [String!]!): [HighLight]
+
+		addEquipments(carId: Int!, equipments: [String!]!): [Equipment]
 	}
 
 	type HighLight {
 		id: Int!
 		carId: Int!
 		highlight: String!
+	}
+
+	type Equipment {
+		id: Int!
+		carId: Int!
+		equipment: String!
 	}
 
 	type Flaw {

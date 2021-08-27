@@ -25,6 +25,7 @@ import { AnswerController } from './controllers/AnswerController';
 import Context, { ContextControllers } from './types/ContextModel';
 import { FlawsController } from './controllers/FlawsController';
 import { HighLightsController } from './controllers/HighLightsController';
+import { EquipmentsController } from './controllers/EquipmentsController';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -51,6 +52,7 @@ const createRelations = async (controllers: ContextControllers) => {
 	const Answers = controllers.answerController.getAnswersTable();
 	const Flaws = controllers.flawsController.getFlawsTable();
 	const HightLights = controllers.highLightsController.getHighLightsTable();
+	const Equipments = controllers.equipmentsController.getEquipmentsTable();
 
 	await Promise.all([
 		Cars.sync(),
@@ -61,6 +63,7 @@ const createRelations = async (controllers: ContextControllers) => {
 		Answers.sync(),
 		Flaws.sync(),
 		HightLights.sync(),
+		Equipments.sync(),
 	]);
 
 	// Link many bids to one car.
@@ -69,6 +72,9 @@ const createRelations = async (controllers: ContextControllers) => {
 
 	Cars.hasMany(Flaws);
 	Flaws.belongsTo(Cars);
+
+	Cars.hasMany(Equipments);
+	Equipments.belongsTo(Cars);
 	// Link many bids to one user
 	Users.hasMany(Bids);
 	Bids.belongsTo(Users);
@@ -96,7 +102,7 @@ const createRelations = async (controllers: ContextControllers) => {
 	Answers.belongsTo(Users);
 };
 
-(async (controllers) => {
+(async (controllers: ContextControllers) => {
 	await createRelations(controllers);
 
 	const app = express();
@@ -145,4 +151,5 @@ const createRelations = async (controllers: ContextControllers) => {
 	answerController: new AnswerController(),
 	flawsController: new FlawsController(),
 	highLightsController: new HighLightsController(),
+	equipmentsController: new EquipmentsController(),
 });
