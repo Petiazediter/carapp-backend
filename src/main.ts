@@ -26,6 +26,7 @@ import Context, { ContextControllers } from './types/ContextModel';
 import { FlawsController } from './controllers/FlawsController';
 import { HighLightsController } from './controllers/HighLightsController';
 import { EquipmentsController } from './controllers/EquipmentsController';
+import { ExtraItemsController } from './controllers/ExtraItemsController';
 
 process.on('beforeExit', () => {
 	console.log('👋️ Bye bye! Exit application!');
@@ -53,6 +54,7 @@ const createRelations = async (controllers: ContextControllers) => {
 	const Flaws = controllers.flawsController.getFlawsTable();
 	const HightLights = controllers.highLightsController.getHighLightsTable();
 	const Equipments = controllers.equipmentsController.getEquipmentsTable();
+	const ExtraItems = controllers.extraItemsController.getExtraItemsTable();
 
 	await Promise.all([
 		Cars.sync(),
@@ -64,6 +66,7 @@ const createRelations = async (controllers: ContextControllers) => {
 		Flaws.sync(),
 		HightLights.sync(),
 		Equipments.sync(),
+		ExtraItems.sync(),
 	]);
 
 	// Link many bids to one car.
@@ -75,6 +78,9 @@ const createRelations = async (controllers: ContextControllers) => {
 
 	Cars.hasMany(Equipments);
 	Equipments.belongsTo(Cars);
+
+	Cars.hasMany(ExtraItems);
+	ExtraItems.belongsTo(Cars);
 	// Link many bids to one user
 	Users.hasMany(Bids);
 	Bids.belongsTo(Users);
@@ -152,4 +158,5 @@ const createRelations = async (controllers: ContextControllers) => {
 	flawsController: new FlawsController(),
 	highLightsController: new HighLightsController(),
 	equipmentsController: new EquipmentsController(),
+	extraItemsController: new ExtraItemsController(),
 });

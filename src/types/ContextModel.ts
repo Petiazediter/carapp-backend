@@ -3,6 +3,7 @@ import { BidController } from '../controllers/BidController';
 import { CarController } from '../controllers/CarController';
 import { CommentController } from '../controllers/CommentController';
 import { EquipmentsController } from '../controllers/EquipmentsController';
+import { ExtraItemsController } from '../controllers/ExtraItemsController';
 import { FlawsController } from '../controllers/FlawsController';
 import { HighLightsController } from '../controllers/HighLightsController';
 import ImageController from '../controllers/ImageController';
@@ -23,6 +24,7 @@ export type ContextControllers = {
 	flawsController: FlawsController;
 	highLightsController: HighLightsController;
 	equipmentsController: EquipmentsController;
+	extraItemsController: ExtraItemsController;
 };
 
 export default Context;
