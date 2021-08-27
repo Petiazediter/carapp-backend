@@ -49,6 +49,12 @@ const comments = async (parent: Car, args: {}, context: Context) => {
 	return car.getComments();
 };
 
+const highlightsItems = async (parent: Car, args: {}, context: Context) => {
+	const carController = context.controllers.carController;
+	const car = await carController.findCarById(parent.id);
+	return car.getHighlights();
+};
+
 export default {
 	seller,
 	bids,
@@ -57,4 +63,5 @@ export default {
 	exteriorImages,
 	videos,
 	comments,
+	highlightsItems,
 };

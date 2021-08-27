@@ -52,7 +52,7 @@ const createRelations = async (controllers: ContextControllers) => {
 	const Comments = controllers.commentController.getCommentsTable();
 	const Answers = controllers.answerController.getAnswersTable();
 	const Flaws = controllers.flawsController.getFlawsTable();
-	const HightLights = controllers.highLightsController.getHighLightsTable();
+	const HighLights = controllers.highLightsController.getHighLightsTable();
 	const Equipments = controllers.equipmentsController.getEquipmentsTable();
 	const ExtraItems = controllers.extraItemsController.getExtraItemsTable();
 
@@ -64,7 +64,7 @@ const createRelations = async (controllers: ContextControllers) => {
 		Comments.sync(),
 		Answers.sync(),
 		Flaws.sync(),
-		HightLights.sync(),
+		HighLights.sync(),
 		Equipments.sync(),
 		ExtraItems.sync(),
 	]);
@@ -81,6 +81,9 @@ const createRelations = async (controllers: ContextControllers) => {
 
 	Cars.hasMany(ExtraItems);
 	ExtraItems.belongsTo(Cars);
+
+	Cars.hasMany(HighLights);
+	HighLights.belongsTo(Cars);
 	// Link many bids to one user
 	Users.hasMany(Bids);
 	Bids.belongsTo(Users);

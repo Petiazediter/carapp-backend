@@ -20,12 +20,12 @@ const schema = gql`
 		exterior: String!
 		interior: String!
 		highlightsTitle: String!
-		highlightsItems: [String]
+		highlightsItems: [HighLight]
 		equipmentTitle: String!
-		equipmentItems: [String]
-		flaws: [String]
+		equipmentItems: [Equipment]
+		flaws: [Flaw]
 		serviceHistroy: String!
-		extraItems: [String]
+		extraItems: [ExtraItem]
 		ownerShipHistory: String!
 		videos: [Image]
 		exteriorImages: [Image]
