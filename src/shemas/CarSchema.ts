@@ -24,7 +24,7 @@ const schema = gql`
 		equipmentTitle: String!
 		equipmentItems: [Equipment]
 		flaws: [Flaw]
-		serviceHistroy: String!
+		serviceHistory: String!
 		extraItems: [ExtraItem]
 		ownerShipHistory: String!
 		videos: [Image]

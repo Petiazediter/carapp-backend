@@ -82,6 +82,26 @@ export class CarController {
 				field: 'transmission',
 				allowNull: false,
 			},
+			highlightsTitle: {
+				type: Sequelize.STRING,
+				field: 'highlightsTitle',
+				allowNull: false,
+			},
+			equipmentTitle: {
+				type: Sequelize.STRING,
+				field: 'equipmentTitle',
+				allowNull: false,
+			},
+			serviceHistory: {
+				type: Sequelize.STRING,
+				field: 'serviceHistory',
+				allowNull: false,
+			},
+			ownerShipHistory: {
+				type: Sequelize.STRING,
+				field: 'ownerShipHistory',
+				allowNull: false,
+			},
 		});
 	}
 

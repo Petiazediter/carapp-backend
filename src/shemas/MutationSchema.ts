@@ -19,7 +19,7 @@ const mutations = gql`
 			interior: String!
 			highlightsTitle: String!
 			equipmentTitle: String!
-			serviceHistroy: String!
+			serviceHistory: String!
 			ownerShipHistory: String!
 		): Car
 
