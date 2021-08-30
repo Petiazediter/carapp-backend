@@ -126,6 +126,7 @@ const createRelations = async (controllers: ContextControllers) => {
 		schema,
 		context: ({ req }): Context => {
 			const token = req.headers.authorization || undefined;
+			console.log(token);
 			const userId = getIdFromToken(token);
 			return {
 				controllers,
