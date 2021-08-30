@@ -6,7 +6,6 @@ export const getIdFromToken = (
 	token: string | undefined | null
 ): number | null => {
 	if (!token) {
-		console.log('NO TOKEN AT ALL');
 		return null;
 	}
 
