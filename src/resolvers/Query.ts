@@ -13,6 +13,8 @@ const car = async (parent: any, { id }: { id: number }, context: Context) => {
 const me = async (parent: any, args: {}, context: Context) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('You are not authorized!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 	return context.controllers.userController.findUserById(userId);
 };
 

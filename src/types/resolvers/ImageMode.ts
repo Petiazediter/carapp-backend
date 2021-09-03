@@ -6,10 +6,10 @@ type Image = {
 };
 
 export enum ImageType {
-	EXTERIOR,
-	INTERIOR,
-	PAPER,
-	VIDEO,
+	EXTERIOR = 'EXTERIOR',
+	INTERIOR = 'INTERIOR',
+	PAPER = 'PAPER',
+	VIDEO = 'VIDEO',
 }
 
 export default Image;

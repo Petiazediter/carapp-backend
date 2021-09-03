@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { UserController } from '../controllers/UserController';
 
 export const SECRET_KEY: string = 'json_secret_key1233444';
 

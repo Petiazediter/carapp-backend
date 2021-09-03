@@ -114,6 +114,8 @@ const bid = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('You have no access to reach this endpoint!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 	const bidController = context.controllers.bidController;
 	const dbBid = await bidController.createBid(carId, bid, userId);
 	pubsub.publish(`BID_CREATED_${carId}`, dbBid);
@@ -142,6 +144,8 @@ const addComment = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authenticated!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 
 	const commentController = context.controllers.commentController;
 	const comment = await commentController.createComment(text, carId, userId);
@@ -159,6 +163,8 @@ const addAnswer = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authenticated!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 
 	const answerController = context.controllers.answerController;
 	const answer = await answerController.addAnswer({
@@ -177,6 +183,8 @@ const addFlaws = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authorized!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 	const flawsTable = context.controllers.flawsController;
 	const car = await context.controllers.carController.findCarById(args.carId);
 	if (car) {
@@ -199,6 +207,8 @@ const addHighLights = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authorized!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 
 	const highlightsItems = context.controllers.highLightsController;
 	const car = await context.controllers.carController.findCarById(args.carId);
@@ -223,6 +233,8 @@ const addEquipments = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authorized!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 
 	const equipments = context.controllers.equipmentsController;
 	const car = await context.controllers.carController.findCarById(args.carId);
@@ -247,6 +259,8 @@ const addExtraItems = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authorized!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 
 	const extraItems = context.controllers.extraItemsController;
 	const car = await context.controllers.carController.findCarById(args.carId);
@@ -302,6 +316,8 @@ const createCarV2 = async (
 ) => {
 	const userId = context.userId;
 	if (!userId) throw new Error('Not authenticated!');
+	if (!(await context.controllers.userController.findUserById(userId)))
+		throw new Error('You have no access to reach this endpoint!');
 
 	const carController = context.controllers.carController;
 

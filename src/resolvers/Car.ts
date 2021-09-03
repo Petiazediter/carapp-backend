@@ -1,6 +1,7 @@
 import Context from '../types/ContextModel';
 import DbImage from '../types/controllers/ControllerImage';
 import Car from '../types/resolvers/CarModel';
+import { ImageType } from '../types/resolvers/ImageMode';
 
 const seller = async (parent: Car, args: {}, context: Context) => {
 	const userController = context.controllers.userController;
@@ -17,30 +18,42 @@ const bids = async (parent: Car, args: {}, context: Context) => {
 const interiorImages = async (parent: Car, args: {}, context: Context) => {
 	const carController = context.controllers.carController;
 	const car = await carController.findCarById(parent.id);
-	return getImageByType(car, 'INTERIOR');
+	return await getImageByType(car, ImageType.INTERIOR);
 };
 
 const exteriorImages = async (parent: Car, args: {}, context: Context) => {
 	const carController = context.controllers.carController;
 	const car = await carController.findCarById(parent.id);
-	return getImageByType(car, 'EXTERIOR');
+	return await getImageByType(car, ImageType.EXTERIOR);
 };
 
 const paperImages = async (parent: Car, args: {}, context: Context) => {
 	const carController = context.controllers.carController;
 	const car = await carController.findCarById(parent.id);
-	return getImageByType(car, 'PAPER');
+	return await getImageByType(car, ImageType.PAPER);
 };
 
 const videos = async (parent: Car, args: {}, context: Context) => {
 	const carController = context.controllers.carController;
 	const car = await carController.findCarById(parent.id);
-	return getImageByType(car, 'VIDEO');
+	return await getImageByType(car, ImageType.VIDEO);
 };
 
-const getImageByType = async (car: any, type: string) => {
+const getImageByType = async (car: any, type: ImageType) => {
 	const images = await car.getImages();
-	return images.filter((value: DbImage) => value.type === type);
+	console.log('PAPER IMAGES:');
+	console.log(type.valueOf());
+	images.forEach((img: DbImage) => {
+		if (img.type === type.valueOf()) {
+			console.log(img.url);
+		}
+	});
+	const filteredList = images.filter(
+		(value: DbImage) => value.type === type.valueOf()
+	);
+	console.log(filteredList.length);
+	console.log('======================');
+	return filteredList;
 };
 
 const comments = async (parent: Car, args: {}, context: Context) => {
