@@ -116,6 +116,8 @@ const bid = async (
 	if (!userId) throw new Error('You have no access to reach this endpoint!');
 	const bidController = context.controllers.bidController;
 	const dbBid = await bidController.createBid(carId, bid, userId);
+	pubsub.publish(`BID_CREATED_${carId}`, dbBid);
+	console.log(dbBid);
 	return dbBid;
 };
 

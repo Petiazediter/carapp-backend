@@ -134,11 +134,9 @@ const createRelations = async (controllers: ContextControllers) => {
 		},
 	});
 
-	await server.start();
-
-	server.applyMiddleware({ app });
-
-	SubscriptionServer.create(
+	// https://www.apollographql.com/docs/apollo-server/data/subscriptions/
+	// ???
+	const subscriptionServer = SubscriptionServer.create(
 		{
 			schema,
 			execute,
@@ -147,6 +145,8 @@ const createRelations = async (controllers: ContextControllers) => {
 		{ server: httpServer, path: server.graphqlPath }
 	);
 
+	await server.start();
+	server.applyMiddleware({ app });
 	const PORT = 4000;
 	httpServer.listen(PORT, () => {
 		console.log(`🚀️ Apollo Server ready at http://localhost:${PORT}/graphql`);
