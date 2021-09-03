@@ -264,6 +264,86 @@ const addExtraItems = async (
 	throw new Error('Car not found!');
 };
 
+type BaseDetails = {
+	name: string;
+	brand: string;
+	model: string;
+	minBid: number;
+	country: string;
+	city: string;
+	vin: string;
+	km: number;
+	endDate: string;
+	body: string;
+	driveTrain: string;
+	transmission: string;
+	exterior: string;
+	interior: string;
+	highlightsTitle: string;
+	equipmentTitle: string;
+	serviceHistroy: string;
+	ownerShipHistory: string;
+	userId?: number;
+};
+
+type CarLists = {
+	flaws: string[];
+	highLights: string[];
+	extraItems: string[];
+	equipments: string[];
+};
+
+type CreateCarObject = {
+	baseDetails: BaseDetails;
+	lists: CarLists;
+};
+
+const createCarV2 = async (
+	parent: any,
+	args: { obj: CreateCarObject },
+	context: Context
+) => {
+	const userId = context.userId;
+	if (!userId) throw new Error('Not authenticated!');
+
+	const carController = context.controllers.carController;
+
+	const dbCar: DbCar = { ...args.obj.baseDetails, userId: userId };
+
+	const car: Car = await carController.insertCar(dbCar);
+	pubsub.publish('CAR_CREATED', car);
+
+	args.obj.lists.equipments.map(async (equipment) => {
+		return await context.controllers.equipmentsController.createEquipment({
+			carId: car.id,
+			equipment: equipment,
+		});
+	});
+
+	args.obj.lists.flaws.map(async (flaw) => {
+		return await context.controllers.flawsController.createFlaw({
+			carId: car.id,
+			flaw: flaw,
+		});
+	});
+
+	args.obj.lists.highLights.map(async (highLight) => {
+		return await context.controllers.highLightsController.createHighLight({
+			carId: car.id,
+			highlight: highLight,
+		});
+	});
+
+	args.obj.lists.extraItems.map(async (extraItem) => {
+		return await context.controllers.extraItemsController.createExtraItems({
+			carId: car.id,
+			extraItem: extraItem,
+		});
+	});
+
+	return car;
+};
+
 export default {
 	register,
 	login,
@@ -277,4 +357,5 @@ export default {
 	addHighLights,
 	addEquipments,
 	addExtraItems,
+	createCarV2,
 };
