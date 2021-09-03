@@ -25,6 +25,10 @@ const mutations = gql`
 			highLights: [String!]!
 			extraItems: [String!]!
 			equipments: [String!]!
+			interiorImages: [String!]!
+			exteriorImages: [String!]!
+			paperImages: [String!]!
+			videos: [String!]!
 		): Car
 
 		createCar(

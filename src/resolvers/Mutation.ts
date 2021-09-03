@@ -289,6 +289,10 @@ type CreateCarParam = {
 	highLights: string[];
 	extraItems: string[];
 	equipments: string[];
+	interiorImages: string[];
+	exteriorImages: string[];
+	paperImages: string[];
+	videos: string[];
 };
 
 const createCarV2 = async (
@@ -332,6 +336,38 @@ const createCarV2 = async (
 			carId: car.id,
 			extraItem: extraItem,
 		});
+	});
+
+	args.interiorImages.map(async (image) => {
+		return await context.controllers.imageController.createImage(
+			image,
+			car.id,
+			ImageType.INTERIOR
+		);
+	});
+
+	args.exteriorImages.map(async (image) => {
+		return await context.controllers.imageController.createImage(
+			image,
+			car.id,
+			ImageType.EXTERIOR
+		);
+	});
+
+	args.videos.map(async (image) => {
+		return await context.controllers.imageController.createImage(
+			image,
+			car.id,
+			ImageType.VIDEO
+		);
+	});
+
+	args.paperImages.map(async (image) => {
+		return await context.controllers.imageController.createImage(
+			image,
+			car.id,
+			ImageType.PAPER
+		);
 	});
 
 	return car;
