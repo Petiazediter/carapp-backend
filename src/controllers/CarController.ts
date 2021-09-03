@@ -36,11 +36,6 @@ export class CarController {
 				field: 'model',
 				allowNull: false,
 			},
-			endDate: {
-				type: Sequelize.STRING,
-				field: 'endDate',
-				allowNull: false,
-			},
 			minBid: {
 				type: Sequelize.INTEGER,
 				field: 'min_bid',
@@ -67,6 +62,11 @@ export class CarController {
 				field: 'km',
 				allowNull: false,
 			},
+			endDate: {
+				type: Sequelize.STRING,
+				field: 'endDate',
+				allowNull: false,
+			},
 			body: {
 				type: Sequelize.STRING,
 				field: 'body',
@@ -80,6 +80,16 @@ export class CarController {
 			transmission: {
 				type: Sequelize.STRING,
 				field: 'transmission',
+				allowNull: false,
+			},
+			exterior: {
+				type: Sequelize.STRING,
+				field: 'exterior',
+				allowNull: false,
+			},
+			interior: {
+				type: Sequelize.STRING,
+				field: 'exterior',
 				allowNull: false,
 			},
 			highlightsTitle: {

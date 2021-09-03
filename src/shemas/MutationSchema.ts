@@ -1,41 +1,31 @@
 import { gql } from 'apollo-server';
 
 const mutations = gql`
-	type BaseDetails {
-		name: String!
-		brand: String!
-		model: String!
-		minBid: Int!
-		country: String!
-		endDate: String!
-		city: String!
-		vin: String!
-		km: Int!
-		body: Body!
-		driveTrain: DriveTrain!
-		transmission: Transmission!
-		exterior: String!
-		interior: String!
-		highlightsTitle: String!
-		equipmentTitle: String!
-		serviceHistory: String!
-		ownerShipHistory: String!
-	}
-
-	type CarLists {
-		flaws: [String!]!
-		highLights: [String!]!
-		extraItems: [String!]!
-		equipments: [String!]!
-	}
-
-	type CreateCarObject {
-		baseDetails: BaseDetails!
-		lists: CarLists!
-	}
-
 	type Mutation {
-		createCarV2(obj: CreateCarObject!): Car
+		createCarV2(
+			name: String!
+			brand: String!
+			model: String!
+			minBid: Int!
+			country: String!
+			endDate: String!
+			city: String!
+			vin: String!
+			km: Int!
+			body: Body!
+			driveTrain: DriveTrain!
+			transmission: Transmission!
+			exterior: String!
+			interior: String!
+			highlightsTitle: String!
+			equipmentTitle: String!
+			serviceHistory: String!
+			ownerShipHistory: String!
+			flaws: [String!]!
+			highLights: [String!]!
+			extraItems: [String!]!
+			equipments: [String!]!
+		): Car
 
 		createCar(
 			name: String!

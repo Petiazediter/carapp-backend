@@ -264,7 +264,9 @@ const addExtraItems = async (
 	throw new Error('Car not found!');
 };
 
-type BaseDetails = {
+type CreateCarParam = {
+	id?: number;
+	userId?: number;
 	name: string;
 	brand: string;
 	model: string;
@@ -283,24 +285,15 @@ type BaseDetails = {
 	equipmentTitle: string;
 	serviceHistroy: string;
 	ownerShipHistory: string;
-	userId?: number;
-};
-
-type CarLists = {
 	flaws: string[];
 	highLights: string[];
 	extraItems: string[];
 	equipments: string[];
 };
 
-type CreateCarObject = {
-	baseDetails: BaseDetails;
-	lists: CarLists;
-};
-
 const createCarV2 = async (
 	parent: any,
-	args: { obj: CreateCarObject },
+	args: CreateCarParam,
 	context: Context
 ) => {
 	const userId = context.userId;
@@ -308,33 +301,33 @@ const createCarV2 = async (
 
 	const carController = context.controllers.carController;
 
-	const dbCar: DbCar = { ...args.obj.baseDetails, userId: userId };
+	const dbCar: DbCar = { ...args, userId: userId };
 
 	const car: Car = await carController.insertCar(dbCar);
 	pubsub.publish('CAR_CREATED', car);
 
-	args.obj.lists.equipments.map(async (equipment) => {
+	args.equipments.map(async (equipment) => {
 		return await context.controllers.equipmentsController.createEquipment({
 			carId: car.id,
 			equipment: equipment,
 		});
 	});
 
-	args.obj.lists.flaws.map(async (flaw) => {
+	args.flaws.map(async (flaw) => {
 		return await context.controllers.flawsController.createFlaw({
 			carId: car.id,
 			flaw: flaw,
 		});
 	});
 
-	args.obj.lists.highLights.map(async (highLight) => {
+	args.highLights.map(async (highLight) => {
 		return await context.controllers.highLightsController.createHighLight({
 			carId: car.id,
 			highlight: highLight,
 		});
 	});
 
-	args.obj.lists.extraItems.map(async (extraItem) => {
+	args.extraItems.map(async (extraItem) => {
 		return await context.controllers.extraItemsController.createExtraItems({
 			carId: car.id,
 			extraItem: extraItem,
