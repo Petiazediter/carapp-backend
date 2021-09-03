@@ -41,18 +41,9 @@ const videos = async (parent: Car, args: {}, context: Context) => {
 
 const getImageByType = async (car: any, type: ImageType) => {
 	const images = await car.getImages();
-	console.log('PAPER IMAGES:');
-	console.log(type.valueOf());
-	images.forEach((img: DbImage) => {
-		if (img.type === type.valueOf()) {
-			console.log(img.url);
-		}
-	});
 	const filteredList = images.filter(
 		(value: DbImage) => value.type === type.valueOf()
 	);
-	console.log(filteredList.length);
-	console.log('======================');
 	return filteredList;
 };
 
