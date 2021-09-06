@@ -121,7 +121,6 @@ const createRelations = async (controllers: ContextControllers) => {
 		typeDefs,
 		resolvers,
 	});
-
 	const server = new ApolloServer({
 		schema,
 		context: ({ req }): Context => {
