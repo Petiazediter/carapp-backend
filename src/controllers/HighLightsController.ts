@@ -21,7 +21,7 @@ export class HighLightsController {
 				allowNull: false,
 			},
 			highlight: {
-				type: Sequelize.STRING,
+				type: Sequelize.TEXT,
 				field: 'highlight',
 				allowNull: false,
 			},
