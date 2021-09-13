@@ -9,3 +9,6 @@ DB_PASS=*user's password*
 DB_NAME=*database name*
 SECRET_KEY=*JSON webtoken secret key*
 ```
+
+Additional informations about the dotnev library:
+https://www.npmjs.com/package/dotenv
