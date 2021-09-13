@@ -5,6 +5,7 @@ const query = gql`
 		cars: [Car]!
 		car(id: Int!): Car
 		me: User
+		carByTitle(titleFragment: String!): [Car]
 	}
 `;
 

@@ -18,8 +18,19 @@ const me = async (parent: any, args: {}, context: Context) => {
 	return context.controllers.userController.findUserById(userId);
 };
 
+const carByTitle = async (
+	parent: any,
+	args: { titleFragment: string },
+	context: Context
+) => {
+	return await context.controllers.carController.getCarByTitleFragment(
+		args.titleFragment
+	);
+};
+
 export default {
 	cars,
 	car,
 	me,
+	carByTitle,
 };

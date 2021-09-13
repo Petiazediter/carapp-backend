@@ -1,4 +1,4 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize, { Model, Op } from 'sequelize';
 import DbCar from '../types/controllers/ControllerCar';
 import { getConnection } from './Database';
 
@@ -141,6 +141,18 @@ export class CarController {
 		await this.cars.sync().then(() => {
 			this.cars.findByPk(id).then((dbCar: Model | null) => {
 				if (dbCar != null) return dbCar.destroy();
+			});
+		});
+	}
+
+	async getCarByTitleFragment(fragment: string) {
+		return await this.cars.sync().then(() => {
+			return this.cars.findAll({
+				where: {
+					name: {
+						[Op.substring]: fragment,
+					},
+				},
 			});
 		});
 	}
