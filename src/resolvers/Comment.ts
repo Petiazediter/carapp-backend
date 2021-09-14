@@ -9,20 +9,29 @@ const user = async (parent: Comment, args: {}, context: Context) => {
 
 const car = async (parent: Comment, args: {}, context: Context) => {
 	const carId = parent.carId;
-	const carController = context.controllers.carController;
-	return await carController.findCarById(carId);
+	if (carId) {
+		const carController = context.controllers.carController;
+		return await carController.findCarById(carId);
+	}
 };
 
-const answers = async (parent: Comment, args: {}, context: Context) => {
+const comment = async (parent: Comment, args: {}, context: Context) => {
+	const commentId = parent.commentId;
+	if (commentId) {
+		const commentController = context.controllers.commentController;
+		return await commentController.getCommentById(commentId);
+	}
+};
+
+const comments = async (parent: Comment, args: {}, context: Context) => {
 	const commentId = parent.id;
-	const comment = await context.controllers.commentController.getCommentById(
-		commentId
-	);
-	return comment.getAnswers();
+	const commentController = context.controllers.commentController;
+	return await commentController.getCommentsToComment(commentId);
 };
 
 export default {
 	user,
 	car,
-	answers,
+	comment,
+	comments,
 };

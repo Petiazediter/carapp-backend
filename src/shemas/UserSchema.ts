@@ -8,7 +8,6 @@ const schema = gql`
 		userType: UserType
 		cars: [Car]
 		bids: [Bid]
-		answers: [Answer]
 		comments: [Comment]
 	}
 

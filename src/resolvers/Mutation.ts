@@ -139,7 +139,7 @@ const addImageUrlToCar = async (
 
 const addComment = async (
 	parent: any,
-	{ text, carId }: { text: string; carId: number },
+	args: { text: string; carId: number | null; commentId: number | null },
 	context: Context
 ) => {
 	const userId = context.userId;
@@ -148,32 +148,13 @@ const addComment = async (
 		throw new Error('You have no access to reach this endpoint!');
 
 	const commentController = context.controllers.commentController;
-	const comment = await commentController.createComment(text, carId, userId);
-	return comment;
-};
-
-const addAnswer = async (
-	parent: any,
-	{
-		text,
-		commentId,
-		answerId,
-	}: { text: string; commentId?: number; answerId?: number },
-	context: Context
-) => {
-	const userId = context.userId;
-	if (!userId) throw new Error('Not authenticated!');
-	if (!(await context.controllers.userController.findUserById(userId)))
-		throw new Error('You have no access to reach this endpoint!');
-
-	const answerController = context.controllers.answerController;
-	const answer = await answerController.addAnswer({
+	const comment = await commentController.createComment(
+		args.text,
 		userId,
-		commentId: commentId ? commentId : undefined,
-		answerId: answerId ? answerId : undefined,
-		text,
-	});
-	return answer;
+		args.carId,
+		args.commentId
+	);
+	return comment;
 };
 
 const addFlaws = async (
@@ -397,7 +378,6 @@ export default {
 	bid,
 	addImageUrlToCar,
 	addComment,
-	addAnswer,
 	addFlaws,
 	addHighLights,
 	addEquipments,

@@ -11,7 +11,6 @@ import User from './resolvers/User';
 import Subscription from './resolvers/Subscription';
 import Mutation from './resolvers/Mutation';
 import Comment from './resolvers/Comment';
-import Answer from './resolvers/Answer';
 import Image from './resolvers/Image';
 import typeDefs from './shemas/schema';
 import { CarController } from './controllers/CarController';
@@ -21,7 +20,6 @@ import { getIdFromToken } from './utils/jwt';
 import { UserController } from './controllers/UserController';
 import ImageController from './controllers/ImageController';
 import { CommentController } from './controllers/CommentController';
-import { AnswerController } from './controllers/AnswerController';
 import Context, { ContextControllers } from './types/ContextModel';
 import { FlawsController } from './controllers/FlawsController';
 import { HighLightsController } from './controllers/HighLightsController';
@@ -40,7 +38,6 @@ const resolvers = {
 	Bid,
 	User,
 	Comment,
-	Answer,
 	Image,
 };
 
@@ -50,7 +47,6 @@ const createRelations = async (controllers: ContextControllers) => {
 	const Users = controllers.userController.getUsersTable();
 	const Images = controllers.imageController.getImagesTable();
 	const Comments = controllers.commentController.getCommentsTable();
-	const Answers = controllers.answerController.getAnswersTable();
 	const Flaws = controllers.flawsController.getFlawsTable();
 	const HighLights = controllers.highLightsController.getHighLightsTable();
 	const Equipments = controllers.equipmentsController.getEquipmentsTable();
@@ -62,7 +58,6 @@ const createRelations = async (controllers: ContextControllers) => {
 		Bids.sync(),
 		Images.sync(),
 		Comments.sync(),
-		Answers.sync(),
 		Flaws.sync(),
 		HighLights.sync(),
 		Equipments.sync(),
@@ -103,12 +98,6 @@ const createRelations = async (controllers: ContextControllers) => {
 	// Link many comment to one user
 	Users.hasMany(Comments);
 	Comments.belongsTo(Users);
-
-	Comments.hasMany(Answers);
-	Answers.belongsTo(Comments);
-
-	Users.hasMany(Answers);
-	Answers.belongsTo(Users);
 };
 
 (async (controllers: ContextControllers) => {
@@ -156,7 +145,6 @@ const createRelations = async (controllers: ContextControllers) => {
 	bidController: new BidController(),
 	imageController: new ImageController(),
 	commentController: new CommentController(),
-	answerController: new AnswerController(),
 	flawsController: new FlawsController(),
 	highLightsController: new HighLightsController(),
 	equipmentsController: new EquipmentsController(),

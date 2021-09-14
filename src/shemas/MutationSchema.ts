@@ -65,9 +65,7 @@ const mutations = gql`
 
 		addImageUrlToCar(url: String!, carId: Int!, imageType: ImageType!): Image
 
-		addComment(text: String!, carId: Int!): Comment
-
-		addAnswer(text: String!, commentId: Int, answerId: Int): Answer
+		addComment(text: String!, carId: Int, commentId: Int): Comment
 
 		addFlaws(carId: Int!, flaws: [String!]!): [Flaw]
 

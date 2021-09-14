@@ -23,9 +23,14 @@ export class CommentController {
 			carId: {
 				type: Sequelize.INTEGER,
 				field: 'carId',
-				allowNull: false,
+				allowNull: true,
 			},
-			comment: {
+			commentId: {
+				type: Sequelize.INTEGER,
+				field: 'commentId',
+				allowNull: true,
+			},
+			message: {
 				type: Sequelize.STRING,
 				field: 'comment',
 				allowNull: false,
@@ -37,12 +42,18 @@ export class CommentController {
 		return this.comments;
 	}
 
-	async createComment(text: string, carId: number, userId: number) {
+	async createComment(
+		message: string,
+		userId: number,
+		carId: number | null,
+		commentId: number | null
+	) {
 		return await this.comments.sync().then(() => {
 			return this.comments.create({
 				userId: userId,
 				carId,
-				comment: text,
+				commentId,
+				message,
 			});
 		});
 	}
@@ -50,6 +61,16 @@ export class CommentController {
 	async getCommentById(id: number) {
 		return await this.comments.sync().then(() => {
 			return this.comments.findByPk(id);
+		});
+	}
+
+	async getCommentsToComment(id: number) {
+		return await this.comments.sync().then(() => {
+			return this.comments.findAll({
+				where: {
+					commentId: id,
+				},
+			});
 		});
 	}
 }

@@ -13,12 +13,6 @@ const bids = async (parent: User, args: {}, context: Context) => {
 	return user.getBids();
 };
 
-const answers = async (parent: User, args: {}, context: Context) => {
-	const userId = parent.id;
-	const user = await context.controllers.userController.findUserById(userId);
-	return user.getAnswers();
-};
-
 const comments = async (parent: User, args: {}, context: Context) => {
 	const userId = parent.id;
 	const user = await context.controllers.userController.findUserById(userId);
@@ -28,6 +22,5 @@ const comments = async (parent: User, args: {}, context: Context) => {
 export default {
 	cars,
 	bids,
-	answers,
 	comments,
 };

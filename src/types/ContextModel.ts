@@ -1,4 +1,3 @@
-import { AnswerController } from '../controllers/AnswerController';
 import { BidController } from '../controllers/BidController';
 import { CarController } from '../controllers/CarController';
 import { CommentController } from '../controllers/CommentController';
@@ -15,7 +14,6 @@ type Context = {
 };
 
 export type ContextControllers = {
-	answerController: AnswerController;
 	bidController: BidController;
 	carController: CarController;
 	commentController: CommentController;

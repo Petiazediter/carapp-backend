@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { UserController } from '../controllers/UserController';
 import dotenv from 'dotenv';
 dotenv.config();
 
